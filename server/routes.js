@@ -1,5 +1,4 @@
-import type { Express } from "express";
-import { createServer, type Server } from "http";
+import { createServer } from "http";
 import nodemailer from "nodemailer";
 import { z } from "zod";
 
@@ -9,7 +8,7 @@ const contactSchema = z.object({
   message: z.string().min(10, "Message must be at least 10 characters")
 });
 
-export async function registerRoutes(app: Express): Promise<Server> {
+async function registerRoutes(app) {
   // Contact form endpoint
   app.post("/api/contact", async (req, res) => {
     try {
@@ -87,3 +86,5 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const httpServer = createServer(app);
   return httpServer;
 }
+
+export { registerRoutes };

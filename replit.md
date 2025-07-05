@@ -101,7 +101,11 @@ This is a modern full-stack web application built for showcasing a developer's p
 - `NODE_ENV`: Environment mode (development/production)
 
 ## Changelog
-- July 05, 2025. Initial setup
+- July 05, 2025: Successfully converted entire project from TypeScript to pure JavaScript
+- July 05, 2025: Removed all TypeScript files and configuration
+- July 05, 2025: Updated all import/export statements to ES module syntax
+- July 05, 2025: Portfolio website fully functional with JavaScript-only stack
+- July 05, 2025: Initial setup
 
 ## User Preferences
 
