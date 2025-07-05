@@ -1,12 +1,12 @@
 import { useState, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
-import { apiRequest } from '../lib/queryClient';
-import { useToast } from '../hooks/use-toast';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
-import { portfolioData } from '../lib/portfolioData';
+import { useToast } from '../hooks/use-toast.js';
+import { Button } from './ui/button.jsx';
+import { Input } from './ui/input.jsx';
+import { Textarea } from './ui/textarea.jsx';
+import { useScrollAnimation } from '../hooks/useScrollAnimation.js';
+import { portfolioData } from '../lib/portfolioData.js';
+import emailService from '../services/emailService.js';
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -23,13 +23,22 @@ export default function ContactSection() {
 
   const contactMutation = useMutation({
     mutationFn: async (data) => {
-      const response = await apiRequest('POST', '/api/contact', data);
-      return response.json();
+      // Use EmailJS instead of API
+      return await emailService.sendContactEmail(data);
     },
-    onSuccess: () => {
+    onSuccess: (result) => {
+      const title = result.demo 
+        ? "Demo mode: Message logged!" 
+        : "Message sent successfully!";
+      
+      const description = result.demo
+        ? "Configure EmailJS to enable real email sending. Check the console for setup instructions."
+        : "Thank you for reaching out. I'll get back to you soon.";
+      
       toast({
-        title: "Message sent successfully!",
-        description: "Thank you for reaching out. I'll get back to you soon.",
+        title,
+        description,
+        variant: result.demo ? "default" : "default"
       });
       setFormData({ name: '', email: '', message: '' });
     },

@@ -1,3 +1,5 @@
+console.log('portfolioData.js loaded!');
+
 export const portfolioData = {
   about: {
     description: "I'm a motivated Computer Engineering student at LJ Institute of Engineering and Technology with hands-on experience in full-stack development. I love creating innovative solutions that bridge the gap between design and functionality.",

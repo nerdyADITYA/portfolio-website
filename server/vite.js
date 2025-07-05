@@ -3,7 +3,6 @@ import fs from "fs";
 import path from "path";
 import { createServer as createViteServer, createLogger } from "vite";
 import viteConfig from "../vite.config.js";
-import { nanoid } from "nanoid";
 import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -23,51 +22,62 @@ function log(message, source = "express") {
 }
 
 async function setupVite(app, server) {
-  const serverOptions = {
-    middlewareMode: true,
-    hmr: { server },
-    allowedHosts: true,
-  };
-
+  const clientRoot = path.resolve(__dirname, "..", "client");
+  
   const vite = await createViteServer({
     ...viteConfig,
     configFile: false,
+    root: clientRoot,
     customLogger: {
       ...viteLogger,
       error: (msg, options) => {
-        viteLogger.error(msg, options);
-        process.exit(1);
+        const cleanMsg = typeof msg === 'string' ? msg.replace(/\(/g, '[').replace(/\)/g, ']') : msg;
+        console.error('[vite error]', cleanMsg);
       },
     },
-    server: serverOptions,
+    server: {
+      middlewareMode: true,
+      hmr: { server },
+      allowedHosts: true,
+    },
     appType: "custom",
   });
 
-  app.use(vite.middlewares);
-  app.use("*", async (req, res, next) => {
-    const url = req.originalUrl;
-
-    try {
-      const clientTemplate = path.resolve(
-        __dirname,
-        "..",
-        "client",
-        "index.html",
-      );
-
-      // always reload the index.html file from disk incase it changes
-      let template = await fs.promises.readFile(clientTemplate, "utf-8");
-      template = template.replace(
-        `src="/src/main.jsx"`,
-        `src="/src/main.jsx?v=${nanoid()}"`,
-      );
-      const page = await vite.transformIndexHtml(url, template);
-      res.status(200).set({ "Content-Type": "text/html" }).end(page);
-    } catch (e) {
-      vite.ssrFixStacktrace(e);
-      next(e);
+  // Serve static files from client/public
+  const publicPath = path.resolve(clientRoot, "public");
+  app.use('/static', express.static(publicPath));
+  
+  // CRITICAL: Only handle non-API routes with a specific middleware
+  app.use((req, res, next) => {
+    // NEVER touch API routes - let them pass through completely
+    if (req.path.startsWith('/api/')) {
+      return next();
     }
+    
+    // For non-API routes, apply Vite middleware
+    vite.middlewares(req, res, (err) => {
+      if (err) {
+        return next(err);
+      }
+      // If Vite middleware doesn't handle it, try serving HTML
+      serveIndexHtml(req, res, next, vite, clientRoot);
+    });
   });
+}
+
+async function serveIndexHtml(req, res, next, vite, clientRoot) {
+  try {
+    const url = req.originalUrl;
+    const clientTemplate = path.resolve(clientRoot, "index.html");
+    
+    let template = await fs.promises.readFile(clientTemplate, "utf-8");
+    const page = await vite.transformIndexHtml(url, template);
+    
+    res.status(200).set({ "Content-Type": "text/html" }).end(page);
+  } catch (e) {
+    vite.ssrFixStacktrace(e);
+    next(e);
+  }
 }
 
 function serveStatic(app) {

@@ -10,14 +10,15 @@ const __dirname = path.dirname(__filename);
 export default defineConfig(async () => {
   const plugins = [
     react(),
-    runtimeErrorOverlay(),
+    // Temporarily remove replit plugins that might cause issues
+    // runtimeErrorOverlay(),
   ];
 
   // Add cartographer plugin for development in Replit
-  if (process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined) {
-    const cartographerModule = await import("@replit/vite-plugin-cartographer");
-    plugins.push(cartographerModule.cartographer());
-  }
+  // if (process.env.NODE_ENV !== "production" && process.env.REPL_ID !== undefined) {
+  //   const cartographerModule = await import("@replit/vite-plugin-cartographer");
+  //   plugins.push(cartographerModule.cartographer());
+  // }
 
   return {
     plugins,

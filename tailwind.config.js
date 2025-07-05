@@ -1,6 +1,11 @@
 module.exports = {
   darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx}"],
+  content: [
+    "./client/index.html", 
+    "./client/src/**/*.{js,jsx}",
+    "./index.html", 
+    "./src/**/*.{js,jsx}"
+  ],
   theme: {
     extend: {
       borderRadius: {

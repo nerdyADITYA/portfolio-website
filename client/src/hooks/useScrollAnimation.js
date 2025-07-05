@@ -21,15 +21,18 @@ export function useScrollAnimation(refs) {
     }, observerOptions);
 
     refs.forEach(ref => {
-      if (ref.current) {
-        observer.observe(ref.current);
+      // Handle both ref objects and direct DOM elements
+      const element = ref?.current || ref;
+      if (element && element instanceof Element) {
+        observer.observe(element);
       }
     });
 
     return () => {
       refs.forEach(ref => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
+        const element = ref?.current || ref;
+        if (element && element instanceof Element) {
+          observer.unobserve(element);
         }
       });
     };

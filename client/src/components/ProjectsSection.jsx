@@ -1,20 +1,44 @@
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import { portfolioData } from '../lib/portfolioData';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
 
 export default function ProjectsSection() {
-  const projectRefs = useRef([]);
+  console.log('ProjectsSection rendering...', portfolioData.projects);
+  const sectionRef = useRef(null);
 
-  useScrollAnimation(projectRefs.current);
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
 
-  const addToRefs = (el) => {
-    if (el && !projectRefs.current.includes(el)) {
-      projectRefs.current.push(el);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Animate all project cards
+          const projectCards = entry.target.querySelectorAll('.project-card-animate');
+          projectCards.forEach((card, index) => {
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, index * 150);
+          });
+        }
+      });
+    }, observerOptions);
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
     }
-  };
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
 
   return (
-    <section id="projects" className="py-20 relative z-10">
+    <section id="projects" className="py-20 relative z-10" ref={sectionRef}>
       <div className="max-w-6xl mx-auto px-6">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-space font-bold mb-6 gradient-text">Featured Projects</h2>
@@ -27,8 +51,7 @@ export default function ProjectsSection() {
           {portfolioData.projects.map((project, index) => (
             <div 
               key={index} 
-              ref={addToRefs}
-              className="project-card p-8 rounded-xl card-hover opacity-0 transform translate-y-8"
+              className="project-card-animate project-card p-8 rounded-xl card-hover opacity-0 transform translate-y-8 transition-all duration-700 ease-out"
             >
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-2xl font-space font-bold">{project.title}</h3>
