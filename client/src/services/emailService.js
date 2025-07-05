@@ -1,5 +1,135 @@
 import emailjs from '@emailjs/browser';
 
+// Toast Notification System
+class ToastNotification {
+  constructor() {
+    this.createToastContainer();
+  }
+
+  createToastContainer() {
+    // Create toast container if it doesn't exist
+    if (!document.getElementById('toast-container')) {
+      const container = document.createElement('div');
+      container.id = 'toast-container';
+      container.style.cssText = `
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 10000;
+        max-width: 400px;
+        pointer-events: none;
+      `;
+      document.body.appendChild(container);
+    }
+  }
+
+  show(message, type = 'success', duration = 5000) {
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+    
+    // Toast styles
+    const baseStyles = `
+      background: white;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      border-left: 4px solid;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.4;
+      pointer-events: auto;
+      transform: translateX(100%);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 0;
+      max-width: 100%;
+      word-wrap: break-word;
+    `;
+
+    const typeStyles = {
+      success: 'border-left-color: #10b981; color: #065f46;',
+      error: 'border-left-color: #ef4444; color: #991b1b;',
+      info: 'border-left-color: #3b82f6; color: #1e40af;',
+      warning: 'border-left-color: #f59e0b; color: #92400e;'
+    };
+
+    toast.style.cssText = baseStyles + typeStyles[type];
+
+    // Icon based on type
+    const icons = {
+      success: '✅',
+      error: '❌',
+      info: 'ℹ️',
+      warning: '⚠️'
+    };
+
+    toast.innerHTML = `
+      <span style="font-size: 16px; flex-shrink: 0;">${icons[type]}</span>
+      <span style="flex: 1;">${message}</span>
+      <button onclick="this.parentElement.remove()" style="
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: inherit;
+        opacity: 0.6;
+        padding: 0;
+        margin-left: 8px;
+        flex-shrink: 0;
+      ">×</button>
+    `;
+
+    // Add to container
+    const container = document.getElementById('toast-container');
+    container.appendChild(toast);
+
+    // Animate in
+    setTimeout(() => {
+      toast.style.transform = 'translateX(0)';
+      toast.style.opacity = '1';
+    }, 100);
+
+    // Auto remove
+    setTimeout(() => {
+      this.remove(toast);
+    }, duration);
+
+    return toast;
+  }
+
+  remove(toast) {
+    toast.style.transform = 'translateX(100%)';
+    toast.style.opacity = '0';
+    setTimeout(() => {
+      if (toast.parentElement) {
+        toast.parentElement.removeChild(toast);
+      }
+    }, 300);
+  }
+
+  success(message, duration = 5000) {
+    return this.show(message, 'success', duration);
+  }
+
+  error(message, duration = 7000) {
+    return this.show(message, 'error', duration);
+  }
+
+  info(message, duration = 5000) {
+    return this.show(message, 'info', duration);
+  }
+
+  warning(message, duration = 5000) {
+    return this.show(message, 'warning', duration);
+  }
+}
+
+// Create global toast instance
+const toast = new ToastNotification();
+
 class EmailJSService {
   constructor() {
     // TODO: Replace these with your actual EmailJS credentials from https://www.emailjs.com/
@@ -32,18 +162,26 @@ class EmailJSService {
   }
 
   async sendContactEmail(formData) {
-    if (!this.isConfigured) {
-      // Demo mode - simulate successful send
-      console.log('📧 Demo mode: Contact form submission:', formData);
-      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
-      return {
-        success: true,
-        message: "Demo mode: Message logged successfully! (Configure EmailJS for real email sending)",
-        demo: true
-      };
-    }
+    // Show loading notification
+    const loadingToast = toast.info('Sending your message...', 30000);
 
     try {
+      if (!this.isConfigured) {
+        // Demo mode - simulate successful send
+        console.log('📧 Demo mode: Contact form submission:', formData);
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate delay
+        
+        // Remove loading toast and show success
+        toast.remove(loadingToast);
+        toast.success("Demo mode: Message logged successfully! (Configure EmailJS for real email sending)", 8000);
+        
+        return {
+          success: true,
+          message: "Demo mode: Message logged successfully! (Configure EmailJS for real email sending)",
+          demo: true
+        };
+      }
+
       console.log('📧 Sending email via EmailJS...');
       
       const templateParams = {
@@ -62,6 +200,10 @@ class EmailJSService {
 
       console.log('✅ EmailJS send successful:', result);
       
+      // Remove loading toast and show success
+      toast.remove(loadingToast);
+      toast.success("Message sent successfully! I'll get back to you soon.", 6000);
+      
       return {
         success: true,
         message: "Message sent successfully! I'll get back to you soon.",
@@ -70,6 +212,9 @@ class EmailJSService {
 
     } catch (error) {
       console.error('❌ EmailJS send failed:', error);
+      
+      // Remove loading toast
+      toast.remove(loadingToast);
       
       // Provide helpful error messages based on error type
       let errorMessage = "Failed to send message. Please try again.";
@@ -81,6 +226,9 @@ class EmailJSService {
       } else if (error.status === 422) {
         errorMessage = "Please check your email address and message.";
       }
+
+      // Show error toast
+      toast.error(errorMessage, 8000);
 
       throw new Error(errorMessage);
     }
@@ -108,9 +256,16 @@ class EmailJSService {
       publicKey: this.publicKey !== 'cSCPbLriE1G3ClXFo' ? '✓ Set' : '✗ Not set'
     };
   }
+
+  // Method to manually show notifications (useful for testing or other purposes)
+  showNotification(message, type = 'info') {
+    toast.show(message, type);
+  }
 }
 
 // Create and export singleton instance
 const emailService = new EmailJSService();
 
+// Export both the service and toast for external use
+export { toast };
 export default emailService;
