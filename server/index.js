@@ -68,8 +68,13 @@ app.use((req, res, next) => {
     // Setup Vite AFTER API routes are registered
     if (env === "development") {
       console.log('Setting up Vite development server...');
-      await setupVite(app, server);
-      console.log('Vite development server setup complete');
+      try {
+        await setupVite(app, server);
+        console.log('Vite development server setup complete');
+      } catch (viteError) {
+        console.error('Vite setup failed:', viteError);
+        console.log('Continuing without Vite...');
+      }
     } else {
       console.log('Setting up static file serving...');
       serveStatic(app);
@@ -88,10 +93,20 @@ app.use((req, res, next) => {
     server.listen(port, "0.0.0.0", () => {
       log(`Server running on port ${port}`);
       log(`API endpoints: http://localhost:${port}/api/health, http://localhost:${port}/api/contact`);
+      log(`Visit http://localhost:${port} to view the portfolio`);
     });
+    
+    // Keep the process alive
+    console.log('Server started successfully. Press Ctrl+C to stop.');
+    
+    // Add a simple keep-alive mechanism
+    setInterval(() => {
+      // This will keep the event loop active
+    }, 1000);
     
   } catch (error) {
     console.error('Failed to start server:', error);
+    console.error('Error stack:', error.stack);
     process.exit(1);
   }
 })();

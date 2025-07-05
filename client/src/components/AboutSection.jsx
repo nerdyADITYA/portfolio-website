@@ -1,3 +1,4 @@
+import React from "react";
 import { useRef } from 'react';
 import { portfolioData } from '../lib/portfolioData';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';

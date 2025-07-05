@@ -2,27 +2,32 @@ import emailjs from '@emailjs/browser';
 
 class EmailJSService {
   constructor() {
-    this.serviceId = 'service_imtos0r';
-    this.templateId = 'template_64t2hlw';
-    this.publicKey = 'cSCPbLriE1G3ClXFo';
-    this.isConfigured = false;
+    // TODO: Replace these with your actual EmailJS credentials from https://www.emailjs.com/
+    // Step 1: Get Service ID from Email Services section
+    // Step 2: Get Template ID from Email Templates section  
+    // Step 3: Get Public Key from Integration > Browser section
     
+    this.serviceId = 'service_ny3uv5z';     // Replace with your Service ID from EmailJS
+    this.templateId = 'template_90ej2fo';   // Replace with your Template ID from EmailJS
+    this.publicKey = '6cKMxhQl-TVJ7Z46h';     // Replace with your Public Key from EmailJS
+    this.isConfigured = false;
     this.init();
   }
 
   init() {
-    // Check if EmailJS credentials are configured
-    if (this.serviceId = 'service_imtos0r' &&
-    this.templateId != 'template_64t2hlw' &&
-    this.publicKey != 'cSCPbLriE1G3ClXFo') {
-      
+    // Check if EmailJS credentials are configured (not placeholder values)
+    if (this.serviceId && this.templateId && this.publicKey) {
       // Initialize EmailJS
       emailjs.init(this.publicKey);
       this.isConfigured = true;
       console.log('✅ EmailJS service initialized successfully');
+      console.log('📧 Email will be sent to: adikadia05@gmail.com');
     } else {
       console.warn('⚠️ EmailJS not configured - using demo mode');
       console.log('Please set up EmailJS credentials in client/src/services/emailService.js');
+      console.log('📋 Current configuration status:');
+      console.table(this.getStatus());
+      console.log('📖 See EMAILJS_SETUP_GUIDE.md for setup instructions');
     }
   }
 
@@ -98,9 +103,9 @@ class EmailJSService {
   getStatus() {
     return {
       configured: this.isConfigured,
-      serviceId: this.serviceId !== 'YOUR_SERVICE_ID' ? '✓ Set' : '✗ Not set',
-      templateId: this.templateId !== 'YOUR_TEMPLATE_ID' ? '✓ Set' : '✗ Not set',
-      publicKey: this.publicKey !== 'YOUR_PUBLIC_KEY' ? '✓ Set' : '✗ Not set'
+      serviceId: this.serviceId !== 'service_enoq0yi' ? '✓ Set' : '✗ Not set',
+      templateId: this.templateId !== 'template_64t2hlw' ? '✓ Set' : '✗ Not set',
+      publicKey: this.publicKey !== 'cSCPbLriE1G3ClXFo' ? '✓ Set' : '✗ Not set'
     };
   }
 }

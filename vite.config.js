@@ -9,7 +9,9 @@ const __dirname = path.dirname(__filename);
 
 export default defineConfig(async () => {
   const plugins = [
-    react(),
+    react({
+      jsxRuntime: 'automatic',
+    }),
     // Temporarily remove replit plugins that might cause issues
     // runtimeErrorOverlay(),
   ];
