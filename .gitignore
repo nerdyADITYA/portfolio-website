@@ -48,9 +48,6 @@ vite.config.ts.*
 # Archive files
 *.tar.gz
 
-# Vercel
-.vercel
-
 # Old directories (cleanup)
 client/
 server/
