@@ -35,7 +35,7 @@ export default function Navigation() {
       <div className="max-w-6xl mx-auto px-6 py-4">
         <div className="flex justify-between items-center">
           <div className="text-xl font-space font-bold gradient-text">
-            Aditya Kadia
+            ADITYA KADIA
           </div>
           
           {/* Desktop Navigation */}

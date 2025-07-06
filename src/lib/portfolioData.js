@@ -6,7 +6,7 @@ export const portfolioData = {
     contactInfo: [
       {
         icon: "fas fa-map-marker-alt",
-        text: "Ahmedabad, Gujarat"
+        text: "Ahmedabad,Vadodara, Gujarat"
       },
       {
         icon: "fas fa-envelope",
@@ -28,7 +28,7 @@ export const portfolioData = {
   
   education: [
     {
-      degree: "Computer Engineering",
+      degree: "Computer Engineering in Artificial Intelligence and Machine Learning (AI/ML)",
       institution: "LJ Institute of Engineering and Technology",
       period: "Expected Graduation: 2027",
       current: true
@@ -84,6 +84,11 @@ export const portfolioData = {
       name: "Exploratory Data Analysis for Machine Learning",
       issuer: "IBM",
       icon: "fas fa-chart-line"
+    },
+    {
+      name: "React JS",
+      issuer: "Scaler",
+      icon: "fa-brands fa-react"
     }
   ],
 
