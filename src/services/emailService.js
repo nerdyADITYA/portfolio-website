@@ -154,7 +154,7 @@ class EmailJSService {
       console.log('📧 Email will be sent to: adikadia05@gmail.com');
     } else {
       console.warn('⚠️ EmailJS not configured - using demo mode');
-      console.log('Please set up EmailJS credentials in client/src/services/emailService.js');
+      console.log('Please set up EmailJS credentials in src/services/emailService.js');
       console.log('📋 Current configuration status:');
       console.table(this.getStatus());
       console.log('📖 See EMAILJS_SETUP_GUIDE.md for setup instructions');
