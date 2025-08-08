@@ -100,6 +100,30 @@ export const portfolioData = {
       githubUrl: "https://github.com/nerdyADITYA/SmartGrocer"
     },
     {
+      title: "AgroAnalytics",
+      description: "ML-powered crop prediction system using agricultural and environmental data",
+      technologies: ["Python", "Django", "Machine Learning", "Pandas"],
+      githubUrl: "https://github.com/nerdyADITYA/Agro_Analytics"
+    },
+    {
+      title: "ExpenseTracker",
+      description: "Full-stack personal finance app offering real-time dashboards, interactive charts, and secure income-expense tracking",
+      technologies: ["Node.js", "Express", "MongoDB", "React", "Tailwind CSS", "JWT"],
+      githubUrl: "https://github.com/nerdyADITYA/Expense-Tracker"
+    },
+    {
+      title: "F1 Podium Predictor",
+      description: "Dual-model ML Django app predicting F1 podium finishes and final positions using 2024 race data",
+      technologies: ["Python", "Django", "scikit-learn", "pandas", "numpy", "RandomForest"],
+      githubUrl: "https://github.com/nerdyADITYA/F1-Podium-Predictor"
+    },
+    {
+      title: "Programming Hangman Game",
+      description: "Full-stack hangman game with programming-themed words, user authentication, score tracking, and leaderboards",
+      technologies: ["React", "Vite", "Tailwind CSS", "Express.js", "MongoDB", "JWT"],
+      githubUrl: "https://github.com/nerdyADITYA/Programming-Hangman-Game"
+    },
+    {
       title: "Score Hub (Python)",
       description: "CLI-based score tracking system built with Python. Features file handling, data persistence, and portable design with minimal dependencies.",
       technologies: ["Python", "CLI", "File I/O"],
