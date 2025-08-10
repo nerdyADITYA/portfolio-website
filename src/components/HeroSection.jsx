@@ -56,7 +56,7 @@ export default function HeroSection() {
               View My Work
             </button>
             <a
-              href="/Aditya Kadia_CV.pdf"
+              href="/Aditya_Kadia_CV.pdf"
               download="Aditya_Kadia_CV.pdf"
               className="border border-portfolio-accent px-8 py-3 rounded-full text-portfolio-accent hover:bg-portfolio-accent hover:text-white transition-all duration-300 inline-block text-center"
             >
