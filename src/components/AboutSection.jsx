@@ -16,7 +16,7 @@ export default function AboutSection() {
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-space font-bold mb-6 gradient-text">About Me</h2>
           <p className="text-xl text-portfolio-text-muted max-w-3xl mx-auto">
-            Passionate developer with a strong foundation in both frontend and backend technologies
+            Passionate Python developer with a strong foundation in both frontend and backend technologies
           </p>
         </div>
 

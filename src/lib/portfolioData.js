@@ -2,7 +2,7 @@ console.log('portfolioData.js loaded!');
 
 export const portfolioData = {
   about: {
-    description: "I'm a motivated Computer Engineering student at LJ Institute of Engineering and Technology with hands-on experience in full-stack development. I love creating innovative solutions that bridge the gap between design and functionality.",
+    description: "I’m a Computer Engineering student at LJ Institute of Engineering and Technology and a Python-focused backend developer. I enjoy building scalable, reliable systems and working on the backend where performance and structure really matter. Alongside this, I have hands-on full-stack experience, which helps me understand the complete picture, from clean APIs to usable interfaces. I like turning ideas into practical, well-built solutions where functionality and design work together.",
     contactInfo: [
       {
         icon: "fas fa-map-marker-alt",
@@ -69,7 +69,8 @@ export const portfolioData = {
         { name: "GitHub", icon: "fab fa-github" },
         { name: "Android", icon: "fab fa-android" },
         { name: "Databases", icon: "fas fa-database" },
-        { name: "CLI Tools", icon: "fas fa-terminal" }
+        { name: "CLI Tools", icon: "fas fa-terminal" },
+        { name: "Jaspersoft Studio", icon: "fas fa-chart-bar" }
       ]
     }
   ],

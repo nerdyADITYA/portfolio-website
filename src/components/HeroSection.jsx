@@ -46,7 +46,7 @@ export default function HeroSection() {
             Hi, I'm <span className="gradient-text">Aditya</span>
           </h1>
           <p ref={subtitleRef} className="text-xl md:text-2xl text-gray-400 mb-8 max-w-3xl mx-auto opacity-0 transform translate-y-8 transition-all duration-700 ease-out delay-300">
-            Full Stack Developer & Computer Engineering Student passionate about creating innovative digital experiences
+            As a Computer Engineering student, I spend most of my time building backend systems with Python. I enjoy creating scalable solutions and using my full-stack skills to turn ideas into real products.
           </p>
           <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 transform translate-y-6 transition-all duration-700 ease-out delay-600">
             <button
