@@ -98,49 +98,86 @@ export const portfolioData = {
       title: "Smart Grocer",
       description: "Android grocery management app with Firebase integration, smart categorization, and low-stock reminders. Built with Android framework and XML layouts.",
       technologies: ["Android", "Firebase", "XML", "Java"],
-      githubUrl: "https://github.com/nerdyADITYA/SmartGrocer"
+      githubUrl: "https://github.com/nerdyADITYA/SmartGrocer",
+        images: [
+          new URL('../attached_assets/smartgrocer-1.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-2.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-3.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-4.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-5.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-6.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-7.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-8.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-9.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-10.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-11.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-12.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-13.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-14.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-15.jpg', import.meta.url).href,
+          new URL('../attached_assets/smartgrocer-16.jpg', import.meta.url).href
+        ]
     },
     {
       title: "AgroAnalytics",
       description: "ML-powered crop prediction system using agricultural and environmental data",
       technologies: ["Python", "Django", "Machine Learning", "Pandas"],
-      githubUrl: "https://github.com/nerdyADITYA/Agro_Analytics"
+      githubUrl: "https://github.com/nerdyADITYA/Agro_Analytics",
+      images: [
+        new URL('../attached_assets/agroanalytics-1.jpg', import.meta.url).href,
+        new URL('../attached_assets/agroanalytics-2.jpg', import.meta.url).href,
+        new URL('../attached_assets/agroanalytics-3.jpg', import.meta.url).href,
+        new URL('../attached_assets/agroanalytics-4.jpg', import.meta.url).href,
+        new URL('../attached_assets/agroanalytics-5.jpg', import.meta.url).href,
+        new URL('../attached_assets/agroanalytics-6.jpg', import.meta.url).href
+      ]
     },
     {
       title: "ExpenseTracker",
       description: "Full-stack personal finance app offering real-time dashboards, interactive charts, and secure income-expense tracking",
       technologies: ["Node.js", "Express", "MongoDB", "React", "Tailwind CSS", "JWT"],
-      githubUrl: "https://github.com/nerdyADITYA/Expense-Tracker"
+      githubUrl: "https://github.com/nerdyADITYA/Expense-Tracker",
+      images: []
     },
     {
       title: "F1 Podium Predictor",
       description: "Dual-model ML Django app predicting F1 podium finishes and final positions using 2024 race data",
       technologies: ["Python", "Django", "scikit-learn", "pandas", "numpy", "RandomForest"],
-      githubUrl: "https://github.com/nerdyADITYA/F1-Podium-Predictor"
+      githubUrl: "https://github.com/nerdyADITYA/F1-Podium-Predictor",
+      images: [new URL('../attached_assets/f1-1.jpg', import.meta.url).href,
+        new URL('../attached_assets/f1-2.jpg', import.meta.url).href,
+        new URL('../attached_assets/f1-3.jpg', import.meta.url).href,
+        new URL('../attached_assets/f1-4.jpg', import.meta.url).href,
+        new URL('../attached_assets/f1-5.jpg', import.meta.url).href
+      ]
     },
     {
       title: "Programming Hangman Game",
       description: "Full-stack hangman game with programming-themed words, user authentication, score tracking, and leaderboards",
       technologies: ["React", "Vite", "Tailwind CSS", "Express.js", "MongoDB", "JWT"],
-      githubUrl: "https://github.com/nerdyADITYA/Programming-Hangman-Game"
+      githubUrl: "https://github.com/nerdyADITYA/Programming-Hangman-Game",
+      images: []
     },
     {
       title: "Score Hub (Python)",
       description: "CLI-based score tracking system built with Python. Features file handling, data persistence, and portable design with minimal dependencies.",
       technologies: ["Python", "CLI", "File I/O"],
-      githubUrl: "https://github.com/nerdyADITYA/ScoreHubPython"
+      githubUrl: "https://github.com/nerdyADITYA/ScoreHubPython",
+      images: []
     },
     {
       title: "Score Hub (JavaScript)",
       description: "Web-based score management application with responsive design, local storage for offline capability, and dynamic score display functionality.",
       technologies: ["JavaScript", "HTML5", "CSS3", "Local Storage"],
-      githubUrl: "https://github.com/nerdyADITYA/ScoreHub"
+      githubUrl: "https://github.com/nerdyADITYA/ScoreHub",
+      images: []
     },
     {
       title: "Game Centre",
       description: "Python CLI card game suite featuring Blackjack, Old Maid, and War. Built with OOP principles, modular design, and standard Python libraries.",
       technologies: ["Python", "OOP", "Game Logic", "CLI"],
-      githubUrl: "https://github.com/nerdyADITYA/GameCenter"
+      githubUrl: "https://github.com/nerdyADITYA/GameCenter",
+      images: []
     }
   ],
 
