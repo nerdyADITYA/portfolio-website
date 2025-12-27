@@ -206,7 +206,7 @@ export const portfolioData = {
     },
     {
       label: "Location",
-      value: "Ahmedabad, Gujarat",
+      value: "Ahmedabad,Vadodara, Gujarat",
       icon: "fas fa-map-marker-alt"
     }
   ],
