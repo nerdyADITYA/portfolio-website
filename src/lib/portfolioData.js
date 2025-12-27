@@ -139,7 +139,7 @@ export const portfolioData = {
       description: "Full-stack personal finance app offering real-time dashboards, interactive charts, and secure income-expense tracking",
       technologies: ["Node.js", "Express", "MongoDB", "React", "Tailwind CSS", "JWT"],
       githubUrl: "https://github.com/nerdyADITYA/Expense-Tracker",
-      liveUrl: "",
+      liveUrl: "https://expense-tracker-cyan-xi-63.vercel.app/",
       images: [new URL('../attached_assets/expensetracker-1.jpg', import.meta.url).href,
         new URL('../attached_assets/expensetracker-2.jpg', import.meta.url).href,
         new URL('../attached_assets/expensetracker-3.jpg', import.meta.url).href,

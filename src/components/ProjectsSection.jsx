@@ -144,14 +144,27 @@ function ProjectCard({ project }) {
 
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-2xl font-space font-bold">{project.title}</h3>
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-portfolio-accent hover:text-portfolio-accent-purple transition-colors"
-        >
-          <i className="fab fa-github text-2xl"></i>
-        </a>
+        <div className="flex items-center gap-3">
+          {project.liveUrl && (
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-portfolio-accent hover:text-portfolio-accent-purple transition-colors"
+              aria-label="Live demo"
+            >
+              <i className="fas fa-globe text-2xl"></i>
+            </a>
+          )}
+          <a
+            href={project.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-portfolio-accent hover:text-portfolio-accent-purple transition-colors"
+          >
+            <i className="fab fa-github text-2xl"></i>
+          </a>
+        </div>
       </div>
       <p className="text-portfolio-text-muted mb-6">
         {project.description}
@@ -175,6 +188,16 @@ function ProjectCard({ project }) {
         >
           View Code <i className="fas fa-external-link-alt ml-1"></i>
         </a>
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-portfolio-accent hover:text-portfolio-accent-purple transition-colors font-medium"
+          >
+            Live Demo <i className="fas fa-external-link-alt ml-1"></i>
+          </a>
+        )}
       </div>
       {/* Portal modal so overlay is rendered at document.body (avoids stacking context issues) */}
       <ImageModal
