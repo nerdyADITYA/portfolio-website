@@ -155,7 +155,7 @@ export const portfolioData = {
       description: "Dual-model ML Django app predicting F1 podium finishes and final positions using 2024 race data",
       technologies: ["Python", "Django", "scikit-learn", "pandas", "numpy", "RandomForest"],
       githubUrl: "https://github.com/nerdyADITYA/F1PodiumPredictor",
-      liveUrl: "",
+      liveUrl: "https://f1-podium-predictor-aary.onrender.com/",
       images: [new URL('../attached_assets/f1-1.jpg', import.meta.url).href,
         new URL('../attached_assets/f1-2.jpg', import.meta.url).href,
         new URL('../attached_assets/f1-3.jpg', import.meta.url).href,
