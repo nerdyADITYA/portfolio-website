@@ -99,6 +99,7 @@ export const portfolioData = {
       description: "Android grocery management app with Firebase integration, smart categorization, and low-stock reminders. Built with Android framework and XML layouts.",
       technologies: ["Android", "Firebase", "XML", "Java"],
       githubUrl: "https://github.com/nerdyADITYA/SmartGrocer",
+      liveUrl: "",
         images: [
           new URL('../attached_assets/smartgrocer-1.jpg', import.meta.url).href,
           new URL('../attached_assets/smartgrocer-2.jpg', import.meta.url).href,
@@ -123,6 +124,7 @@ export const portfolioData = {
       description: "ML-powered crop prediction system using agricultural and environmental data",
       technologies: ["Python", "Django", "Machine Learning", "Pandas"],
       githubUrl: "https://github.com/nerdyADITYA/Agro_Analytics",
+      liveUrl: "",
       images: [
         new URL('../attached_assets/agroanalytics-1.jpg', import.meta.url).href,
         new URL('../attached_assets/agroanalytics-2.jpg', import.meta.url).href,
@@ -137,13 +139,23 @@ export const portfolioData = {
       description: "Full-stack personal finance app offering real-time dashboards, interactive charts, and secure income-expense tracking",
       technologies: ["Node.js", "Express", "MongoDB", "React", "Tailwind CSS", "JWT"],
       githubUrl: "https://github.com/nerdyADITYA/Expense-Tracker",
-      images: []
+      liveUrl: "",
+      images: [new URL('../attached_assets/expensetracker-1.jpg', import.meta.url).href,
+        new URL('../attached_assets/expensetracker-2.jpg', import.meta.url).href,
+        new URL('../attached_assets/expensetracker-3.jpg', import.meta.url).href,
+        new URL('../attached_assets/expensetracker-4.jpg', import.meta.url).href,
+        new URL('../attached_assets/expensetracker-5.jpg', import.meta.url).href,
+        new URL('../attached_assets/expensetracker-6.jpg', import.meta.url).href,
+        new URL('../attached_assets/expensetracker-7.jpg', import.meta.url).href,
+        new URL('../attached_assets/expensetracker-8.jpg', import.meta.url).href
+      ]
     },
     {
       title: "F1 Podium Predictor",
       description: "Dual-model ML Django app predicting F1 podium finishes and final positions using 2024 race data",
       technologies: ["Python", "Django", "scikit-learn", "pandas", "numpy", "RandomForest"],
       githubUrl: "https://github.com/nerdyADITYA/F1-Podium-Predictor",
+      liveUrl: "",
       images: [new URL('../attached_assets/f1-1.jpg', import.meta.url).href,
         new URL('../attached_assets/f1-2.jpg', import.meta.url).href,
         new URL('../attached_assets/f1-3.jpg', import.meta.url).href,
@@ -156,6 +168,7 @@ export const portfolioData = {
       description: "Full-stack hangman game with programming-themed words, user authentication, score tracking, and leaderboards",
       technologies: ["React", "Vite", "Tailwind CSS", "Express.js", "MongoDB", "JWT"],
       githubUrl: "https://github.com/nerdyADITYA/Programming-Hangman-Game",
+      liveUrl: "",
       images: []
     },
     {
@@ -163,6 +176,7 @@ export const portfolioData = {
       description: "CLI-based score tracking system built with Python. Features file handling, data persistence, and portable design with minimal dependencies.",
       technologies: ["Python", "CLI", "File I/O"],
       githubUrl: "https://github.com/nerdyADITYA/ScoreHubPython",
+      liveUrl: "",
       images: []
     },
     {
@@ -170,6 +184,7 @@ export const portfolioData = {
       description: "Web-based score management application with responsive design, local storage for offline capability, and dynamic score display functionality.",
       technologies: ["JavaScript", "HTML5", "CSS3", "Local Storage"],
       githubUrl: "https://github.com/nerdyADITYA/ScoreHub",
+      liveUrl: "",
       images: []
     },
     {
@@ -177,6 +192,7 @@ export const portfolioData = {
       description: "Python CLI card game suite featuring Blackjack, Old Maid, and War. Built with OOP principles, modular design, and standard Python libraries.",
       technologies: ["Python", "OOP", "Game Logic", "CLI"],
       githubUrl: "https://github.com/nerdyADITYA/GameCenter",
+      liveUrl: "",
       images: []
     }
   ],
