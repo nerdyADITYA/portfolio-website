@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Navigation from '../components/Navigation';
 import HeroSection from '../components/HeroSection';
 import AboutSection from '../components/AboutSection';
@@ -10,7 +11,6 @@ import ThreeBackground from '../components/ThreeBackground';
 
 export default function Home() {
   useEffect(() => {
-    // Set page title and meta description
     document.title = "Aditya Kadia - Full Stack Developer Portfolio";
     
     const metaDescription = document.querySelector('meta[name="description"]');
@@ -25,9 +25,15 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-portfolio-primary text-portfolio-text-light overflow-x-hidden">
+    <motion.div 
+      className="min-h-screen bg-portfolio-primary text-portfolio-text-light overflow-x-hidden"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.5 }}
+    >
       <ThreeBackground />
-      <Navigation />
+      <Navigation isFreelance={false} />
       <main>
         <HeroSection />
         <AboutSection />
@@ -42,6 +48,6 @@ export default function Home() {
           </p>
         </div>
       </footer>
-    </div>
+    </motion.div>
   );
 }
