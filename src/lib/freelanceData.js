@@ -46,36 +46,32 @@ export const freelanceData = {
 
   projects: [
     {
-      title: "E-Commerce Platform",
-      client: "RetailTech Startup",
-      description: "Built a full-featured e-commerce platform with inventory management, payment processing, and real-time order tracking.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
-      result: "Increased client sales by 150% in first quarter",
-      image: null
+      title: "School Website",
+      client: "Angel English School",
+      description: "A professionally designed school website delivering a clean user experience, fast performance, and seamless communication through integrated contact systems.",
+      technologies: ["React", "Node.js", "Email JS"],
+      result: "Increased client satisfaction by 100%",
+      images: [
+        new URL("../attached_assets/school.jpg", import.meta.url).href,
+        new URL("../attached_assets/school2.jpg", import.meta.url).href,
+        new URL("../attached_assets/school3.jpg", import.meta.url).href,
+        new URL("../attached_assets/school4.jpg", import.meta.url).href,
+        new URL("../attached_assets/school5.jpg", import.meta.url).href,
+        new URL("../attached_assets/school6.jpg", import.meta.url).href,
+        new URL("../attached_assets/school7.jpg", import.meta.url).href,
+        new URL("../attached_assets/school8.jpg", import.meta.url).href,
+        new URL("../attached_assets/school9.jpg", import.meta.url).href,
+        new URL("../attached_assets/school10.jpg", import.meta.url).href,
+        new URL("../attached_assets/school11.jpg", import.meta.url).href,
+      ]
     },
     {
-      title: "Healthcare Dashboard",
-      client: "MedCare Solutions",
-      description: "Developed an analytics dashboard for healthcare providers to monitor patient data and generate automated reports.",
-      technologies: ["Python", "Django", "PostgreSQL", "Chart.js"],
-      result: "Reduced report generation time by 80%",
-      image: null
-    },
-    {
-      title: "Restaurant Ordering App",
-      client: "Local Restaurant Chain",
-      description: "Created a mobile ordering system with table management, real-time kitchen updates, and customer loyalty features.",
-      technologies: ["React Native", "Firebase", "Node.js"],
-      result: "Served 10,000+ orders in first month",
-      image: null
-    },
-    {
-      title: "Inventory Management System",
-      client: "Manufacturing Company",
-      description: "Built a custom inventory tracking solution with barcode scanning, automated reordering, and supplier management.",
-      technologies: ["Java", "Spring Boot", "MySQL", "Android"],
-      result: "Reduced inventory errors by 95%",
-      image: null
+      title: "E-Commerce Website",
+      client: "Nexen Technomac LLP",
+      description: "Built a modern, responsive business website to showcase services, products, and enable smooth customer interaction.",
+      technologies: ["React", "Node.js", "Email JS"],
+      result: "Improved digital presence and customer engagement",
+      images: []
     }
   ],
 
@@ -147,8 +143,8 @@ export const freelanceData = {
   },
 
   stats: [
-    { value: "20+", label: "Projects Completed" },
-    { value: "15+", label: "Happy Clients" },
+    { value: "15+", label: "Projects Completed" },
+    { value: "10+", label: "Happy Clients" },
     { value: "2+", label: "Years Experience" },
     { value: "100%", label: "Client Satisfaction" }
   ]
