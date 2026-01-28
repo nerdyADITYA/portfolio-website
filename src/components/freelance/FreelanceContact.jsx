@@ -80,7 +80,7 @@ export default function FreelanceContact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center p-8 md:p-12 rounded-2xl bg-gradient-to-br from-portfolio-accent/10 to-portfolio-accent-purple/10 border border-portfolio-accent/30"
+          className="text-center p-8 md:p-12 rounded-2xl bg-gradient-to-br from-portfolio-accent/10 to-portfolio-accent-purple/10"
         >
           <div className="mb-12">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
@@ -151,7 +151,7 @@ export default function FreelanceContact() {
             </div>
 
             {/* Contact Info */}
-            <div className="flex flex-col justify-center space-y-8 pl-0 md:pl-8 border-t md:border-t-0 md:border-l border-portfolio-accent/20 pt-8 md:pt-0">
+            <div className="flex flex-col justify-center space-y-8 pl-0 md:pl-8 pt-8 md:pt-0">
               <div className="space-y-6">
                 <h3 className="text-xl font-semibold mb-4 text-portfolio-text-light">Contact Details</h3>
                 {portfolioData.contactInfo.map((info, index) => (

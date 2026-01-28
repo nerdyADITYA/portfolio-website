@@ -1,7 +1,7 @@
 export const freelanceData = {
   hero: {
     headline: "Turning Ideas Into Digital Reality",
-    subheadline: "Freelance Full-Stack Developer & Technical Consultant",
+    subheadline: "Freelance Full-Stack Developer",
     description: "I help startups and businesses build scalable web applications, mobile apps, and automation solutions. Let's bring your vision to life with clean code and modern technologies."
   },
 
@@ -23,12 +23,6 @@ export const freelanceData = {
       description: "Robust backend systems and RESTful APIs. Database design, authentication, and third-party integrations.",
       icon: "fas fa-server",
       features: ["REST APIs", "Database Design", "Authentication", "Cloud Deployment"]
-    },
-    {
-      title: "Technical Consulting",
-      description: "Code reviews, architecture planning, and technical guidance for your development team or startup.",
-      icon: "fas fa-lightbulb",
-      features: ["Code Review", "Architecture Design", "Tech Stack Selection", "Performance Audit"]
     },
     {
       title: "Automation & Scripts",
@@ -139,9 +133,9 @@ export const freelanceData = {
 
   contactCTA: {
     headline: "Ready to Start Your Project?",
-    description: "Let's discuss your idea and see how I can help bring it to life. Free consultation for new clients.",
+    description: "Let's discuss your idea and see how I can help bring it to life.",
     email: "adikadia05@gmail.com",
-    availability: "Currently accepting new projects for Q1 2026"
+    availability: "Currently accepting new projects"
   },
 
   stats: [
