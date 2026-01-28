@@ -51,6 +51,7 @@ export const freelanceData = {
       description: "A professionally designed school website delivering a clean user experience, fast performance, and seamless communication through integrated contact systems.",
       technologies: ["React", "Node.js", "Email JS"],
       result: "Increased client satisfaction by 100%",
+      liveUrl: "https://angel-english-school.vercel.app/",
       images: [
         new URL("../attached_assets/school.jpg", import.meta.url).href,
         new URL("../attached_assets/school2.jpg", import.meta.url).href,
@@ -71,6 +72,7 @@ export const freelanceData = {
       description: "Built a modern, responsive business website to showcase services, products, and enable smooth customer interaction.",
       technologies: ["React", "Node.js", "Email JS"],
       result: "Improved digital presence and customer engagement",
+      liveUrl: "",
       images: []
     }
   ],

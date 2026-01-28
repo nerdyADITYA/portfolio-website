@@ -164,6 +164,20 @@ function FreelanceProjectCard({ project, index }) {
           <i className="fas fa-chart-line"></i>
           <span>{project.result}</span>
         </div>
+
+        {project.liveUrl && (
+          <div className="mt-4 pt-4 border-t border-gray-700/50">
+            <a
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-portfolio-accent hover:text-portfolio-accent/80 transition-colors text-sm font-medium"
+            >
+              <span>Visit Live Site</span>
+              <i className="fas fa-external-link-alt text-xs"></i>
+            </a>
+          </div>
+        )}
       </div>
 
       <ImageModal
