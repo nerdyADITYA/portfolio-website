@@ -61,6 +61,23 @@ export const freelanceData = {
       ]
     },
     {
+      title: "Appointly",
+      client: "Local Businesses",
+      description: "A modern appointment booking platform designed to simplify scheduling for customers and streamline booking management for business owners through a clean, intuitive interface.",
+      technologies: ["React", "Node.js", "MongoDB", "EmailJS", "AnimeJS"],
+      result: "Reduced booking friction and improved schedule management efficiency",
+      liveUrl: "https://appointly-nine.vercel.app/",
+      images: [
+        new URL("../attached_assets/appointly.jpg", import.meta.url).href,
+        new URL("../attached_assets/appointly2.jpg", import.meta.url).href,
+        new URL("../attached_assets/appointly3.jpg", import.meta.url).href,
+        new URL("../attached_assets/appointly4.jpg", import.meta.url).href,
+        new URL("../attached_assets/appointly5.jpg", import.meta.url).href,
+        new URL("../attached_assets/appointly6.jpg", import.meta.url).href,
+        new URL("../attached_assets/appointly7.jpg", import.meta.url).href,
+      ]
+    },
+    {
       title: "E-Commerce Website",
       client: "Nexen Technomac LLP",
       description: "Built a modern, responsive business website to showcase services, products, and enable smooth customer interaction.",
