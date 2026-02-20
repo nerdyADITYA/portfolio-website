@@ -83,8 +83,18 @@ export const freelanceData = {
       description: "Built a modern, responsive business website to showcase services, products, and enable smooth customer interaction.",
       technologies: ["React", "Node.js", "Email JS"],
       result: "Improved digital presence and customer engagement",
-      liveUrl: "",
-      images: []
+      liveUrl: "https://nexen-technomac-llp.vercel.app/home",
+      images: [
+        new URL("../attached_assets/nexen.jpg", import.meta.url).href,
+        new URL("../attached_assets/nexen1.jpg", import.meta.url).href,
+        new URL("../attached_assets/nexen2.jpg", import.meta.url).href,
+        new URL("../attached_assets/nexen3.jpg", import.meta.url).href,
+        new URL("../attached_assets/nexen4.jpg", import.meta.url).href,
+        new URL("../attached_assets/nexen5.jpg", import.meta.url).href,
+        new URL("../attached_assets/nexen6.jpg", import.meta.url).href,
+        new URL("../attached_assets/nexen7.jpg", import.meta.url).href,
+        new URL("../attached_assets/nexen8.jpg", import.meta.url).href
+      ]
     }
   ],
 
