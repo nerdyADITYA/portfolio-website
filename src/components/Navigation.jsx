@@ -70,7 +70,7 @@ export default function Navigation({ isFreelance = false }) {
               </button>
             ))}
             
-            <motion.button
+            {/* <motion.button
               onClick={handlePortfolioToggle}
               className={`relative px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
                 isFreelance 
@@ -84,7 +84,7 @@ export default function Navigation({ isFreelance = false }) {
                 <i className={`fas ${isFreelance ? 'fa-code' : 'fa-briefcase'} text-xs`}></i>
                 {isFreelance ? 'Developer Portfolio' : 'Freelance Portfolio'}
               </span>
-            </motion.button>
+            </motion.button> */}
           </div>
           
           <button 
