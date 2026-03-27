@@ -25,7 +25,7 @@ export const portfolioData = {
       }
     ]
   },
-  
+
   education: [
     {
       degree: "Computer Engineering in Artificial Intelligence and Machine Learning (AI/ML)",
@@ -90,34 +90,118 @@ export const portfolioData = {
       name: "React JS",
       issuer: "Scaler",
       icon: "fa-brands fa-react"
+    },
+    {
+      name: "Backend Development with .NET",
+      issuer: "IBM",
+      icon: "fa-brands fa-microsoft"
     }
   ],
 
   projects: [
+    {
+      title: "ExpenseTracker",
+      description: "Full-stack personal finance app offering real-time dashboards, interactive charts, and secure income-expense tracking",
+      technologies: ["Node.js", "Express", "MongoDB", "React", "Tailwind CSS", "JWT"],
+      githubUrl: "https://github.com/nerdyADITYA/ExpenseTracker",
+      liveUrl: "https://expense-tracker-cyan-xi-63.vercel.app/",
+      images: [new URL('../attached_assets/expensetracker-1.jpg', import.meta.url).href,
+      new URL('../attached_assets/expensetracker-2.jpg', import.meta.url).href,
+      new URL('../attached_assets/expensetracker-3.jpg', import.meta.url).href,
+      new URL('../attached_assets/expensetracker-4.jpg', import.meta.url).href,
+      new URL('../attached_assets/expensetracker-5.jpg', import.meta.url).href,
+      new URL('../attached_assets/expensetracker-6.jpg', import.meta.url).href,
+      new URL('../attached_assets/expensetracker-7.jpg', import.meta.url).href,
+      new URL('../attached_assets/expensetracker-8.jpg', import.meta.url).href
+      ]
+    },
+    {
+      title: "Smart Inventory Intelligence Platform",
+      description: "Enterprise-grade inventory system with multi-location tracking, real-time stock management, and a Python ML microservice for demand forecasting, stock-out prediction, and intelligent reorder optimization.",
+      technologies: [
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Node.js",
+        "Express",
+        "MariaDB",
+        "FastAPI",
+        "Python",
+        "Scikit-learn",
+        "Statsmodels",
+        "Pandas",
+        "NumPy",
+        "JWT"
+      ],
+      githubUrl: "https://github.com/nerdyADITYA/Smart_inventory.git",
+      liveUrl: "https://smart-inventory-black.vercel.app/login",
+      images: [
+        new URL('../attached_assets/SM1.jpg', import.meta.url).href,
+        new URL('../attached_assets/SM2.jpg', import.meta.url).href,
+        new URL('../attached_assets/SM3.jpg', import.meta.url).href,
+        new URL('../attached_assets/SM4.jpg', import.meta.url).href,
+        new URL('../attached_assets/SM5.jpg', import.meta.url).href,
+        new URL('../attached_assets/SM6.jpg', import.meta.url).href,
+        new URL('../attached_assets/SM7.jpg', import.meta.url).href,
+        new URL('../attached_assets/SM8.jpg', import.meta.url).href,
+        new URL('../attached_assets/SM9.jpg', import.meta.url).href,
+      ]
+    },
+    {
+      title: "Appointly",
+      description: "Full-stack appointment booking platform with real-time slot management, OTP-based authentication, admin dashboards, and automated email notifications for seamless scheduling.",
+      technologies: [
+        "React",
+        "Vite",
+        "Tailwind CSS",
+        "Framer Motion",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "Mongoose",
+        "Passport.js",
+        "React Query",
+        "Zod",
+        "Nodemailer"
+      ],
+      githubUrl: "https://github.com/nerdyADITYA/Appointly",
+      liveUrl: "https://appointly-nine.vercel.app/",
+      images: [
+        new URL('../attached_assets/appointly.jpg', import.meta.url).href,
+        new URL('../attached_assets/appointly1.jpg', import.meta.url).href,
+        new URL('../attached_assets/appointly2.jpg', import.meta.url).href,
+        new URL('../attached_assets/appointly3.jpg', import.meta.url).href,
+        new URL('../attached_assets/appointly4.jpg', import.meta.url).href,
+        new URL('../attached_assets/appointly5.jpg', import.meta.url).href,
+        new URL('../attached_assets/appointly6.jpg', import.meta.url).href,
+        new URL('../attached_assets/appointly7.jpg', import.meta.url).href,
+      ]
+    },
     {
       title: "Smart Grocer",
       description: "Android grocery management app with Firebase integration, smart categorization, and low-stock reminders. Built with Android framework and XML layouts.",
       technologies: ["Android", "Firebase", "XML", "Java"],
       githubUrl: "https://github.com/nerdyADITYA/SmartGrocer",
       liveUrl: "",
-        images: [
-          new URL('../attached_assets/smartgrocer-1.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-2.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-3.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-4.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-5.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-6.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-7.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-8.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-9.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-10.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-11.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-12.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-13.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-14.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-15.jpg', import.meta.url).href,
-          new URL('../attached_assets/smartgrocer-16.jpg', import.meta.url).href
-        ]
+      images: [
+        new URL('../attached_assets/smartgrocer-1.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-2.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-3.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-4.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-5.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-6.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-7.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-8.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-9.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-10.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-11.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-12.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-13.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-14.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-15.jpg', import.meta.url).href,
+        new URL('../attached_assets/smartgrocer-16.jpg', import.meta.url).href
+      ]
     },
     {
       title: "AgroAnalytics",
@@ -134,22 +218,7 @@ export const portfolioData = {
         new URL('../attached_assets/agroanalytics-6.jpg', import.meta.url).href
       ]
     },
-    {
-      title: "ExpenseTracker",
-      description: "Full-stack personal finance app offering real-time dashboards, interactive charts, and secure income-expense tracking",
-      technologies: ["Node.js", "Express", "MongoDB", "React", "Tailwind CSS", "JWT"],
-      githubUrl: "https://github.com/nerdyADITYA/ExpenseTracker",
-      liveUrl: "https://expense-tracker-cyan-xi-63.vercel.app/",
-      images: [new URL('../attached_assets/expensetracker-1.jpg', import.meta.url).href,
-        new URL('../attached_assets/expensetracker-2.jpg', import.meta.url).href,
-        new URL('../attached_assets/expensetracker-3.jpg', import.meta.url).href,
-        new URL('../attached_assets/expensetracker-4.jpg', import.meta.url).href,
-        new URL('../attached_assets/expensetracker-5.jpg', import.meta.url).href,
-        new URL('../attached_assets/expensetracker-6.jpg', import.meta.url).href,
-        new URL('../attached_assets/expensetracker-7.jpg', import.meta.url).href,
-        new URL('../attached_assets/expensetracker-8.jpg', import.meta.url).href
-      ]
-    },
+
     {
       title: "F1 Podium Predictor",
       description: "Dual-model ML Django app predicting F1 podium finishes and final positions using 2024 race data",
@@ -157,44 +226,12 @@ export const portfolioData = {
       githubUrl: "https://github.com/nerdyADITYA/F1PodiumPredictor",
       liveUrl: "https://f1-podium-predictor-aary.onrender.com/",
       images: [new URL('../attached_assets/f1-1.jpg', import.meta.url).href,
-        new URL('../attached_assets/f1-2.jpg', import.meta.url).href,
-        new URL('../attached_assets/f1-3.jpg', import.meta.url).href,
-        new URL('../attached_assets/f1-4.jpg', import.meta.url).href,
-        new URL('../attached_assets/f1-5.jpg', import.meta.url).href
+      new URL('../attached_assets/f1-2.jpg', import.meta.url).href,
+      new URL('../attached_assets/f1-3.jpg', import.meta.url).href,
+      new URL('../attached_assets/f1-4.jpg', import.meta.url).href,
+      new URL('../attached_assets/f1-5.jpg', import.meta.url).href
       ]
     },
-    {
-      title: "Programming Hangman Game",
-      description: "Full-stack hangman game with programming-themed words, user authentication, score tracking, and leaderboards",
-      technologies: ["React", "Vite", "Tailwind CSS", "Express.js", "MongoDB", "JWT"],
-      githubUrl: "https://github.com/nerdyADITYA/Programming-Hangman-Game",
-      liveUrl: "",
-      images: []
-    },
-    // {
-    //   title: "Score Hub (Python)",
-    //   description: "CLI-based score tracking system built with Python. Features file handling, data persistence, and portable design with minimal dependencies.",
-    //   technologies: ["Python", "CLI", "File I/O"],
-    //   githubUrl: "https://github.com/nerdyADITYA/ScoreHubPython",
-    //   liveUrl: "",
-    //   images: []
-    // },
-    // {
-    //   title: "Score Hub (JavaScript)",
-    //   description: "Web-based score management application with responsive design, local storage for offline capability, and dynamic score display functionality.",
-    //   technologies: ["JavaScript", "HTML5", "CSS3", "Local Storage"],
-    //   githubUrl: "https://github.com/nerdyADITYA/ScoreHub",
-    //   liveUrl: "",
-    //   images: []
-    // },
-    // {
-    //   title: "Game Centre",
-    //   description: "Python CLI card game suite featuring Blackjack, Old Maid, and War. Built with OOP principles, modular design, and standard Python libraries.",
-    //   technologies: ["Python", "OOP", "Game Logic", "CLI"],
-    //   githubUrl: "https://github.com/nerdyADITYA/GameCenter",
-    //   liveUrl: "",
-    //   images: []
-    // }
   ],
 
   contactInfo: [
