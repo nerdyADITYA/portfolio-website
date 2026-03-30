@@ -95,6 +95,11 @@ export const portfolioData = {
       name: "Backend Development with .NET",
       issuer: "IBM",
       icon: "fa-brands fa-microsoft"
+    },
+    {
+      name: "Introduction to Software Engineering",
+      issuer: "IBM",
+      icon: "fa-solid fa-laptop-code"
     }
   ],
 
