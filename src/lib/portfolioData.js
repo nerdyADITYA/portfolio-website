@@ -108,7 +108,7 @@ export const portfolioData = {
       technologies: ["Node.js", "Express", "Prisma", "MySQL", "React", "Python", "Socket.IO"],
       githubUrl: "https://github.com/nerdyADITYA/SPPAS.git",
       liveUrl: "https://sppas.vercel.app/login",
-      images: []
+      images: range('SPPAS', 7, 'png')
     },
     {
       title: "Smart Inventory",
