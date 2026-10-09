@@ -1,71 +1,36 @@
 import React from "react";
-import { useRef } from 'react';
-import { portfolioData } from '../lib/portfolioData';
-import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { portfolioData as d } from "../lib/portfolioData";
+import Reveal from "./Reveal";
+import SectionTitle from "./SectionTitle";
 
 export default function AboutSection() {
-  const sectionRef = useRef(null);
-  const personalInfoRef = useRef(null);
-  const educationRef = useRef(null);
-
-  useScrollAnimation([personalInfoRef, educationRef]);
-
   return (
-    <section id="about" className="py-20 relative z-10" ref={sectionRef}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-space font-bold mb-6 gradient-text">About Me</h2>
-          <p className="text-xl text-portfolio-text-muted max-w-3xl mx-auto">
-            Passionate Python developer with a strong foundation in both frontend and backend technologies
-          </p>
+    <section id="about" className="max-w-6xl mx-auto px-6 pt-24 scroll-mt-20">
+      <SectionTitle>About</SectionTitle>
+      <Reveal>
+        <div className="bk-box bk-static p-7 text-lg leading-relaxed" style={{ background: "var(--bk-yellow)" }}>
+          {d.about.description}
         </div>
+      </Reveal>
 
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          {/* Personal Info */}
-          <div ref={personalInfoRef} className="opacity-0 transform translate-y-8">
-            <h3 className="text-2xl font-space font-semibold mb-6">Get to know me</h3>
-            <p className="text-portfolio-text-muted mb-6 leading-relaxed">
-              {portfolioData.about.description}
-            </p>
-            <div className="space-y-4">
-              {portfolioData.about.contactInfo.map((info, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <i className={`${info.icon} text-portfolio-accent`}></i>
-                  {info.link ? (
-                    <a href={info.link} target="_blank" rel="noopener noreferrer" className="hover:text-portfolio-accent transition-colors">
-                      {info.text}
-                    </a>
-                  ) : (
-                    <span>{info.text}</span>
-                  )}
-                </div>
-              ))}
+      <div className="grid md:grid-cols-2 gap-6 mt-6">
+        {d.education.map((e, i) => (
+          <Reveal key={e.institution} delay={i * 0.1}>
+            <div className="bk-box p-6 h-full" style={{ background: i === 0 ? "var(--bk-blue)" : "var(--bk-green)" }}>
+              <h3 className="text-2xl font-bold leading-tight">{e.institution}</h3>
+              <span className="mono text-xs block my-2">{e.period} · {e.place}</span>
+              <p>{e.degree}</p>
+              {e.cgpa && <p className="mono text-sm mt-2 font-bold">CGPA: {e.cgpa}</p>}
             </div>
-          </div>
-
-          {/* Education Timeline */}
-          <div ref={educationRef} className="opacity-0 transform translate-y-8">
-            <h3 className="text-2xl font-space font-semibold mb-6">Education</h3>
-            <div className="space-y-6">
-              {portfolioData.education.map((edu, index) => (
-                <div key={index} className={`relative pl-8 border-l-2 ${index === 0 ? 'border-portfolio-accent' : 'border-gray-600'}`}>
-                  <div className={`absolute -left-2 top-0 w-4 h-4 ${index === 0 ? 'bg-portfolio-accent' : 'bg-gray-600'} rounded-full`}></div>
-                  <div className={`${index === 0 ? 'bg-portfolio-secondary/50' : 'bg-portfolio-secondary/30'} p-6 rounded-lg`}>
-                    <h4 className={`text-xl font-semibold ${index === 0 ? 'text-portfolio-accent' : 'text-portfolio-text-light'}`}>
-                      {edu.degree}
-                    </h4>
-                    <p className="text-portfolio-text-muted mb-2">{edu.institution}</p>
-                    <p className="text-sm text-portfolio-text-muted">{edu.period}</p>
-                    {edu.cgpa && (
-                      <p className="text-sm text-portfolio-text-muted">CGPA: {edu.cgpa}</p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+          </Reveal>
+        ))}
       </div>
+
+      <Reveal>
+        <p className="mt-6 text-sm">
+          <b className="mono">Relevant coursework:</b> {d.coursework.join(" · ")}
+        </p>
+      </Reveal>
     </section>
   );
 }

@@ -1,193 +1,96 @@
-import React from "react";
-import { useState, useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
-import { useToast } from '../hooks/use-toast.js';
-import { Button } from './ui/button.jsx';
-import { Input } from './ui/input.jsx';
-import { Textarea } from './ui/textarea.jsx';
-import { useScrollAnimation } from '../hooks/useScrollAnimation.js';
-import { portfolioData } from '../lib/portfolioData.js';
-import emailService from '../services/emailService.js';
+import React, { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useToast } from "../hooks/use-toast.js";
+import { portfolioData } from "../lib/portfolioData.js";
+import emailService from "../services/emailService.js";
+import Reveal from "./Reveal";
+import SectionTitle from "./SectionTitle";
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-
+  const [formData, setFormData] = useState({ name: "", email: "", message: "" });
   const { toast } = useToast();
-  const formRef = useRef(null);
-  const contactInfoRef = useRef(null);
-
-  useScrollAnimation([formRef, contactInfoRef]);
 
   const contactMutation = useMutation({
-    mutationFn: async (data) => {
-      // Use EmailJS instead of API
-      return await emailService.sendContactEmail(data);
-    },
+    mutationFn: (data) => emailService.sendContactEmail(data),
     onSuccess: (result) => {
-      const title = result.demo 
-        ? "Demo mode: Message logged!" 
-        : "Message sent successfully!";
-      
-      const description = result.demo
-        ? "Configure EmailJS to enable real email sending. Check the console for setup instructions."
-        : "Thank you for reaching out. I'll get back to you soon.";
-      
       toast({
-        title,
-        description,
-        variant: result.demo ? "default" : "default"
+        title: result.demo ? "Demo mode: Message logged!" : "Message sent successfully!",
+        description: result.demo
+          ? "Configure EmailJS to enable real email sending. Check the console for setup instructions."
+          : "Thank you for reaching out. I'll get back to you soon."
       });
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: "", email: "", message: "" });
     },
     onError: (error) => {
       toast({
         title: "Failed to send message",
         description: error.message || "Please try again later.",
-        variant: "destructive",
+        variant: "destructive"
       });
     }
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: "Please fill in all fields",
         description: "All fields are required to send a message.",
-        variant: "destructive",
+        variant: "destructive"
       });
       return;
     }
-
     contactMutation.mutate(formData);
   };
 
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   return (
-    <section id="contact" className="py-20 relative z-10">
-      <div className="max-w-4xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-space font-bold mb-6 gradient-text">Get In Touch</h2>
-          <p className="text-xl text-portfolio-text-muted max-w-3xl mx-auto">
-            Have a project in mind or want to collaborate? I'd love to hear from you!
-          </p>
-        </div>
+    <section id="contact" className="max-w-6xl mx-auto px-6 pt-24 pb-20 scroll-mt-20">
+      <Reveal>
+        <div className="bk-box bk-static p-6 md:p-10" style={{ background: "var(--bk-pink)" }}>
+          <SectionTitle className="mb-3">Let's work together!</SectionTitle>
+          <p className="text-xl mb-8">Open to roles, collaborations and Master's programme conversations — drop me a line.</p>
 
-        <div className="grid md:grid-cols-2 gap-12">
-          {/* Contact Form */}
-          <div ref={formRef} className="opacity-0 transform translate-y-8">
-            <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="grid md:grid-cols-2 gap-10">
+            <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">Name</label>
-                <Input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-portfolio-secondary border border-gray-600 rounded-lg focus:border-portfolio-accent focus:ring-1 focus:ring-portfolio-accent outline-none transition-colors text-portfolio-text-light"
-                  placeholder="Your name"
-                />
+                <label htmlFor="name" className="mono text-sm font-bold block mb-1">Name</label>
+                <input id="name" name="name" type="text" required value={formData.name} onChange={handleChange} className="bk-input" placeholder="Your name" />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">Email</label>
-                <Input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-portfolio-secondary border border-gray-600 rounded-lg focus:border-portfolio-accent focus:ring-1 focus:ring-portfolio-accent outline-none transition-colors text-portfolio-text-light"
-                  placeholder="your.email@example.com"
-                />
+                <label htmlFor="email" className="mono text-sm font-bold block mb-1">Email</label>
+                <input id="email" name="email" type="email" required value={formData.email} onChange={handleChange} className="bk-input" placeholder="you@example.com" />
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">Message</label>
-                <Textarea
-                  id="message"
-                  name="message"
-                  rows="6"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-4 py-3 bg-portfolio-secondary border border-gray-600 rounded-lg focus:border-portfolio-accent focus:ring-1 focus:ring-portfolio-accent outline-none transition-colors resize-none text-portfolio-text-light"
-                  placeholder="Tell me about your project or say hello!"
-                />
+                <label htmlFor="message" className="mono text-sm font-bold block mb-1">Message</label>
+                <textarea id="message" name="message" rows="5" required value={formData.message} onChange={handleChange} className="bk-input resize-none" placeholder="Say hello!" />
               </div>
-              <Button
-                type="submit"
-                disabled={contactMutation.isPending}
-                className="w-full bg-gradient-to-r from-portfolio-accent to-portfolio-accent-purple px-8 py-3 rounded-lg text-white font-medium hover:shadow-lg transition-all duration-300 hover:scale-105"
-              >
-                {contactMutation.isPending ? 'Sending...' : 'Send Message'}
-              </Button>
+              <button type="submit" disabled={contactMutation.isPending} className="bk-btn">
+                {contactMutation.isPending ? "Sending..." : "Send message →"}
+              </button>
             </form>
-          </div>
 
-          {/* Contact Info */}
-          <div ref={contactInfoRef} className="opacity-0 transform translate-y-8">
-            <div className="space-y-8">
-              <div>
-                <h3 className="text-2xl font-space font-semibold mb-6">Let's Connect</h3>
-                <p className="text-portfolio-text-muted mb-6">
-                  I'm always open to discussing new opportunities, collaborations, or just having a chat about technology and development.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                {portfolioData.contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-center space-x-4">
-                    <div className="w-12 h-12 bg-portfolio-accent/20 rounded-lg flex items-center justify-center">
-                      <i className={`${info.icon} text-portfolio-accent text-xl`}></i>
-                    </div>
-                    <div>
-                      <p className="font-medium">{info.label}</p>
-                      {info.link ? (
-                        <a href={info.link} className="text-portfolio-text-muted hover:text-portfolio-accent transition-colors">
-                          {info.value}
-                        </a>
-                      ) : (
-                        <p className="text-portfolio-text-muted">{info.value}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Social Links */}
-              <div>
-                <h4 className="text-lg font-semibold mb-4">Follow Me</h4>
-                <div className="flex space-x-4">
-                  {portfolioData.socialLinks.map((social, index) => (
-                    <a
-                      key={index}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-portfolio-accent/20 rounded-lg flex items-center justify-center hover:bg-portfolio-accent hover:text-white transition-colors"
-                    >
-                      <i className={`${social.icon} text-xl`}></i>
-                    </a>
-                  ))}
+            <div className="space-y-4">
+              {portfolioData.contactInfo.map((info) => (
+                <div key={info.label} className="bk-box bk-static p-4 bg-white">
+                  <span className="mono text-xs block">{info.label}</span>
+                  {info.link ? (
+                    <a href={info.link} className="font-bold underline underline-offset-4 break-all">{info.value}</a>
+                  ) : (
+                    <b>{info.value}</b>
+                  )}
                 </div>
+              ))}
+              <div className="flex flex-wrap gap-3 pt-2">
+                {portfolioData.socialLinks.map((s) => (
+                  <a key={s.platform} href={s.url} target="_blank" rel="noopener noreferrer" className="bk-btn white">{s.platform} ↗</a>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

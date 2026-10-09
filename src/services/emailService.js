@@ -217,12 +217,16 @@ class EmailJSService {
       toast.remove(loadingToast);
       
       // Provide helpful error messages based on error type
-      let errorMessage = "Failed to send message. Please try again.";
-      
+      const directEmail = 'adikadia05@gmail.com';
+      let errorMessage = `Failed to send message. Please try again, or email me directly at ${directEmail}.`;
+
       if (error.status === 400) {
-        errorMessage = "Invalid email configuration. Please contact the site administrator.";
+        errorMessage = `Invalid email configuration. Please email me directly at ${directEmail}.`;
       } else if (error.status === 402) {
-        errorMessage = "Email service quota exceeded. Please try again later.";
+        errorMessage = `Email service quota exceeded. Please email me directly at ${directEmail}.`;
+      } else if (error.status === 412) {
+        // EmailJS could not use the connected Gmail account (e.g. "Invalid grant" - needs reconnecting)
+        errorMessage = `The message service is temporarily unavailable. Please email me directly at ${directEmail}.`;
       } else if (error.status === 422) {
         errorMessage = "Please check your email address and message.";
       }

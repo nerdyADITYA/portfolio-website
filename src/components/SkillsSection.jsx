@@ -1,92 +1,71 @@
-import React from "react";
-import { useRef, useEffect } from 'react';
-import { portfolioData } from '../lib/portfolioData';
+import React, { useState } from "react";
+import { portfolioData as d } from "../lib/portfolioData";
+import Reveal from "./Reveal";
+import SectionTitle from "./SectionTitle";
+import ImageModal from "./ImageModal";
+
+const palette = ["var(--bk-pink)", "var(--bk-green)", "var(--bk-blue)", "var(--bk-orange)"];
 
 export default function SkillsSection() {
-  console.log('SkillsSection rendering...', portfolioData.skills);
-  const sectionRef = useRef(null);
+  const withImage = d.certifications.filter((c) => c.image);
+  const [viewing, setViewing] = useState(null); // index into withImage
 
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Animate all skill categories
-          const skillCategories = entry.target.querySelectorAll('.skill-category');
-          skillCategories.forEach((category, index) => {
-            setTimeout(() => {
-              category.style.opacity = '1';
-              category.style.transform = 'translateY(0)';
-            }, index * 200);
-          });
-          
-          // Animate certifications
-          const certSection = entry.target.querySelector('.cert-section');
-          if (certSection) {
-            setTimeout(() => {
-              certSection.style.opacity = '1';
-              certSection.style.transform = 'translateY(0)';
-            }, 600);
-          }
-        }
-      });
-    }, observerOptions);
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
+  const open = (cert) => setViewing(withImage.indexOf(cert));
+  const step = (dir) => setViewing((i) => (i + dir + withImage.length) % withImage.length);
 
   return (
-    <section id="skills" className="py-20 relative z-10" ref={sectionRef}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-space font-bold mb-6 gradient-text">Skills & Technologies</h2>
-          <p className="text-xl text-portfolio-text-muted max-w-3xl mx-auto">
-            Technologies and tools I use to bring ideas to life
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {portfolioData.skills.map((category, index) => (
-            <div key={index} className="skill-category opacity-0 transform translate-y-8 transition-all duration-700 ease-out">
-              <h3 className="text-xl font-space font-semibold mb-6 text-center">{category.category}</h3>
-              <div className="flex flex-wrap gap-3 justify-center">
-                {category.items.map((skill, skillIndex) => (
-                  <span key={skillIndex} className="skill-badge px-4 py-2 rounded-full text-sm font-medium">
-                    <i className={`${skill.icon} text-portfolio-accent mr-2`}></i>
-                    {skill.name}
-                  </span>
-                ))}
-              </div>
+    <section id="skills" className="max-w-6xl mx-auto px-6 pt-24 scroll-mt-20">
+      <SectionTitle>Stack</SectionTitle>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {d.skills.map((g, i) => (
+          <Reveal key={g.category} delay={(i % 3) * 0.08}>
+            <div className="bk-box p-5 h-full" style={{ background: palette[i % 4] }}>
+              <h4 className="mono font-bold uppercase mb-2">{g.category}</h4>
+              <p>{g.items.join(" · ")}</p>
             </div>
-          ))}
-        </div>
-
-        {/* Certifications */}
-        <div className="mt-16">
-          <h3 className="text-2xl font-space font-semibold mb-8 text-center">Certifications</h3>
-          <div className="cert-section grid md:grid-cols-2 gap-6 opacity-0 transform translate-y-8 transition-all duration-700 ease-out">
-            {portfolioData.certifications.map((cert, index) => (
-              <div key={index} className="project-card p-6 rounded-lg text-center card-hover">
-                <i className={`${cert.icon} text-4xl text-portfolio-accent mb-4`}></i>
-                <h4 className="text-lg font-semibold mb-2">{cert.name}</h4>
-                <p className="text-portfolio-text-muted text-sm">{cert.issuer}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+          </Reveal>
+        ))}
       </div>
+
+      <SectionTitle className="mt-16 mb-8">Certs</SectionTitle>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {d.certifications.map((c, i) => (
+          <Reveal key={c.name} delay={(i % 3) * 0.08}>
+            <div className="bk-box p-4 h-full flex flex-col">
+              {c.image && (
+                <button
+                  onClick={() => open(c)}
+                  className="block mb-4 border-[3px] border-[var(--bk-ink)] rounded-lg overflow-hidden bg-white cursor-zoom-in"
+                  aria-label={`View ${c.name} certificate`}
+                >
+                  <img src={c.image} alt={`${c.name} certificate`} loading="lazy" className="w-full h-auto block" />
+                </button>
+              )}
+              <span className="mono text-xs block mb-1">{[c.date, c.issuer].filter(Boolean).join(" · ")}</span>
+              <b className="leading-snug">{c.name}</b>
+              {(c.file || c.verifyUrl) && (
+                <div className="flex flex-wrap gap-2 mt-auto pt-4">
+                  {c.file && (
+                    <a href={c.file} target="_blank" rel="noopener noreferrer" className="bk-btn white !py-1.5 !px-3 !text-xs">PDF ↗</a>
+                  )}
+                  {c.verifyUrl && (
+                    <a href={c.verifyUrl} target="_blank" rel="noopener noreferrer" className="bk-btn !py-1.5 !px-3 !text-xs">Verify ↗</a>
+                  )}
+                </div>
+              )}
+            </div>
+          </Reveal>
+        ))}
+      </div>
+
+      <ImageModal
+        open={viewing !== null}
+        images={withImage.map((c) => c.image)}
+        index={viewing ?? 0}
+        onClose={() => setViewing(null)}
+        onPrev={() => step(-1)}
+        onNext={() => step(1)}
+      />
     </section>
   );
 }

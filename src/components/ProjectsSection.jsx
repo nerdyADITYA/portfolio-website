@@ -1,276 +1,174 @@
-import React from "react";
-import { useRef, useEffect, useState } from 'react';
-import { createPortal } from 'react-dom';
-import { portfolioData } from '../lib/portfolioData';
+import React, { useLayoutEffect, useRef, useState } from "react";
+import { portfolioData } from "../lib/portfolioData";
+import Reveal from "./Reveal";
+import SectionTitle from "./SectionTitle";
+import ImageModal from "./ImageModal";
+
+const cardColors = ["#ffffff", "#fff0f4", "#eaf4ff", "#eafff1", "#fff4e3"];
+const tagColors = ["var(--bk-yellow)", "var(--bk-green)", "var(--bk-blue)", "var(--bk-pink)"];
 
 export default function ProjectsSection() {
-  console.log('ProjectsSection rendering...', portfolioData.projects);
-  const sectionRef = useRef(null);
+  const gridRef = useRef(null);
 
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
+  // Keep the two cards in a row the same height while collapsed, but let an opened card
+  // grow on its own: each card's min-height = tallest *collapsed* card in its row.
+  useLayoutEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const twoCols = window.matchMedia("(min-width: 768px)");
+    let lastWidth = -1;
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          // Animate all project cards
-          const projectCards = entry.target.querySelectorAll('.project-card-animate');
-          projectCards.forEach((card, index) => {
-            setTimeout(() => {
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            }, index * 150);
-          });
-        }
-      });
-    }, observerOptions);
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
+    const measure = () => {
+      const cards = [...grid.querySelectorAll("article")];
+      cards.forEach((c) => { c.style.minHeight = ""; });
+      if (!twoCols.matches) return;
+      const collapsed = cards.map(
+        (c) => c.offsetHeight - (c.querySelector("[data-details]")?.offsetHeight || 0)
+      );
+      for (let i = 0; i < cards.length; i += 2) {
+        const h = Math.max(collapsed[i], collapsed[i + 1] || 0);
+        cards[i].style.minHeight = `${h}px`;
+        if (cards[i + 1]) cards[i + 1].style.minHeight = `${h}px`;
       }
     };
+
+    const ro = new ResizeObserver(() => {
+      const w = grid.offsetWidth;
+      if (w !== lastWidth) { lastWidth = w; measure(); }   // only re-measure when the width changes
+    });
+    ro.observe(grid);
+    measure();
+    document.fonts?.ready.then(measure);
+    return () => ro.disconnect();
   }, []);
 
   return (
-    <section id="projects" className="py-20 relative z-10" ref={sectionRef}>
-      <div className="max-w-6xl mx-auto px-6">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-space font-bold mb-6 gradient-text">Featured Projects</h2>
-          <p className="text-xl text-portfolio-text-muted max-w-3xl mx-auto">
-            A collection of projects showcasing my development journey and technical skills
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-8">
-          {portfolioData.projects.map((project, index) => (
-            <ProjectCard project={project} key={index} />
-          ))}
-        </div>
+    <section id="projects" className="max-w-6xl mx-auto px-6 pt-24 scroll-mt-20">
+      <SectionTitle>Projects</SectionTitle>
+      <div ref={gridRef} className="grid md:grid-cols-2 gap-8 items-start">
+        {portfolioData.projects.map((project, index) => (
+          <Reveal key={project.title} delay={(index % 2) * 0.1}>
+            <ProjectCard project={project} index={index} />
+          </Reveal>
+        ))}
       </div>
     </section>
   );
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, index }) {
   const [current, setCurrent] = useState(0);
   const [modalOpen, setModalOpen] = useState(false);
-  const [modalIndex, setModalIndex] = useState(0);
+  const [expanded, setExpanded] = useState(false);
+  const detailsId = `project-details-${index}`;
   const touchStartX = useRef(null);
   const touchEndX = useRef(null);
 
-  const hasImages = Array.isArray(project.images) && project.images.length > 0;
+  const images = project.images;
+  const hasImages = images.length > 0;
+  const goPrev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
+  const goNext = () => setCurrent((c) => (c + 1) % images.length);
 
-  function goPrev() {
-    setCurrent((c) => (c - 1 + project.images.length) % project.images.length);
-  }
-
-  function goNext() {
-    setCurrent((c) => (c + 1) % project.images.length);
-  }
-
-  function onTouchStart(e) {
-    touchStartX.current = e.touches[0].clientX;
-  }
-
-  function onTouchMove(e) {
-    touchEndX.current = e.touches[0].clientX;
-  }
-
-  function onTouchEnd() {
+  const onTouchEnd = () => {
     if (touchStartX.current == null || touchEndX.current == null) return;
     const diff = touchStartX.current - touchEndX.current;
-    const threshold = 50;
-    if (diff > threshold) {
-      goNext();
-    } else if (diff < -threshold) {
-      goPrev();
-    }
+    if (diff > 50) goNext();
+    else if (diff < -50) goPrev();
     touchStartX.current = null;
     touchEndX.current = null;
-  }
+  };
 
   return (
-    <div className="project-card-animate project-card p-8 rounded-xl card-hover opacity-0 transform translate-y-8 transition-all duration-700 ease-out">
-      {hasImages ? (
-        <div className="mb-6">
-          <div className="relative overflow-hidden rounded-md">
-            <div
-              className="flex transition-transform duration-500 ease-out"
-              style={{ transform: `translateX(-${current * 100}%)` }}
-              onTouchStart={onTouchStart}
-              onTouchMove={onTouchMove}
-              onTouchEnd={onTouchEnd}
-            >
-              {project.images.map((src, i) => (
-                <div key={i} className="w-full flex-shrink-0 flex items-center justify-center">
-                  <img
-                    src={src}
-                    alt={`${project.title} ${i + 1}`}
-                    className="w-auto object-contain rounded-md cursor-zoom-in"
-                    style={{ maxHeight: '12rem' }}
-                    onClick={() => { setModalIndex(i); setModalOpen(true); }}
-                  />
-                </div>
-              ))}
-            </div>
+    <article className="bk-box relative p-6 h-full flex flex-col" style={{ background: cardColors[index % cardColors.length] }}>
+      <span className="bk-num">{String(index + 1).padStart(2, "0")}</span>
 
-            {project.images.length > 1 && (
-              <>
-                <button onClick={goPrev} className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full p-2">
-                  <i className="fas fa-chevron-left"></i>
-                </button>
-                <button onClick={goNext} className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 text-white rounded-full p-2">
-                  <i className="fas fa-chevron-right"></i>
-                </button>
-              </>
-            )}
-
-            <div className="absolute left-1/2 transform -translate-x-1/2 bottom-2 flex gap-2">
-              {project.images.map((_, i) => (
-                <button key={i} onClick={() => setCurrent(i)} className={`w-2 h-2 rounded-full ${i === current ? 'bg-white' : 'bg-white/40'}`} />
-              ))}
-            </div>
-          </div>
-        </div>
-      ) : null}
-
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="text-2xl font-space font-bold">{project.title}</h3>
-        <div className="flex items-center gap-3">
-          {project.liveUrl && (
-            <a
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-portfolio-accent hover:text-portfolio-accent-purple transition-colors"
-              aria-label="Live demo"
-            >
-              <i className="fas fa-globe text-2xl"></i>
-            </a>
-          )}
-          <a
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-portfolio-accent hover:text-portfolio-accent-purple transition-colors"
+      {hasImages && (
+        <div className="relative overflow-hidden rounded-lg border-[3px] border-[var(--bk-ink)] mb-5 bg-white">
+          <div
+            className="flex transition-transform duration-500 ease-out"
+            style={{ transform: `translateX(-${current * 100}%)` }}
+            onTouchStart={(e) => { touchStartX.current = e.touches[0].clientX; }}
+            onTouchMove={(e) => { touchEndX.current = e.touches[0].clientX; }}
+            onTouchEnd={onTouchEnd}
           >
-            <i className="fab fa-github text-2xl"></i>
-          </a>
+            {images.map((src, i) => (
+              <div key={src} className="w-full flex-shrink-0 flex items-center justify-center">
+                <img
+                  src={src}
+                  alt={`${project.title} screenshot ${i + 1}`}
+                  loading="lazy"
+                  className="object-contain cursor-zoom-in"
+                  style={{ height: "13rem", width: "100%" }}
+                  onClick={() => setModalOpen(true)}
+                />
+              </div>
+            ))}
+          </div>
+          {images.length > 1 && (
+            <>
+              <button onClick={goPrev} aria-label="Previous screenshot" className="absolute left-2 top-1/2 -translate-y-1/2 bk-btn !px-3 !py-1 !shadow-none bg-white">‹</button>
+              <button onClick={goNext} aria-label="Next screenshot" className="absolute right-2 top-1/2 -translate-y-1/2 bk-btn !px-3 !py-1 !shadow-none bg-white">›</button>
+              <span className="absolute bottom-2 right-2 mono text-xs font-bold bg-[var(--bk-ink)] text-[var(--bk-yellow)] px-2 py-0.5 rounded">
+                {current + 1}/{images.length}
+              </span>
+            </>
+          )}
+        </div>
+      )}
+
+      <h3 className="text-2xl font-bold leading-tight">{project.title}</h3>
+      <span className="mono text-xs block mt-1 mb-3">{project.subtitle} · {project.category}</span>
+      <p className="text-[15px]">{project.description}</p>
+
+      {/* grid-rows 0fr -> 1fr animates height smoothly without measuring it */}
+      <div
+        id={detailsId}
+        data-details
+        aria-hidden={!expanded}
+        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-in-out motion-reduce:transition-none ${
+          expanded ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        <div className="overflow-hidden">
+          <ul className="list-disc pl-5 pt-4 space-y-2 text-[15px]">
+            {project.highlights.map((h) => <li key={h}>{h}</li>)}
+          </ul>
         </div>
       </div>
-      <p className="text-portfolio-text-muted mb-6">
-        {project.description}
-      </p>
-      <div className="flex flex-wrap gap-2 mb-6">
-        {project.technologies.map((tech, techIndex) => (
-          <span
-            key={techIndex}
-            className="bg-portfolio-accent/20 text-portfolio-accent px-3 py-1 rounded-full text-sm"
-          >
-            {tech}
-          </span>
+      <button
+        onClick={() => setExpanded(!expanded)}
+        className="mono text-sm font-bold underline underline-offset-4 text-left mt-3 w-fit"
+        aria-expanded={expanded}
+        aria-controls={detailsId}
+      >
+        {expanded ? "− Hide details" : "+ How it works"}
+      </button>
+
+      <div className="mt-2">
+        {project.technologies.map((t, i) => (
+          <span key={t} className="bk-tag" style={{ background: tagColors[(i + t.length) % 4] }}>{t}</span>
         ))}
       </div>
-      <div className="flex space-x-4">
-        <a
-          href={project.githubUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-portfolio-accent hover:text-portfolio-accent-purple transition-colors font-medium"
-        >
-          View Code <i className="fas fa-external-link-alt ml-1"></i>
-        </a>
-        {project.liveUrl && (
-          <a
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-portfolio-accent hover:text-portfolio-accent-purple transition-colors font-medium"
-          >
-            Live Demo <i className="fas fa-external-link-alt ml-1"></i>
-          </a>
-        )}
-      </div>
-      {/* Portal modal so overlay is rendered at document.body (avoids stacking context issues) */}
+
+      {(project.githubUrl || project.liveUrl) && (
+        <div className="flex flex-wrap gap-3 mt-auto pt-6">
+          {project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className="bk-btn white !py-2 !text-sm">Code ↗</a>
+          )}
+          {project.liveUrl && (
+            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className="bk-btn !py-2 !text-sm">Live demo ↗</a>
+          )}
+        </div>
+      )}
+
       <ImageModal
         open={modalOpen}
-        images={project.images}
-        index={modalIndex}
+        images={images}
+        index={current}
         onClose={() => setModalOpen(false)}
-        onPrev={() => setModalIndex((i) => (i - 1 + project.images.length) % project.images.length)}
-        onNext={() => setModalIndex((i) => (i + 1) % project.images.length)}
-        setIndex={setModalIndex}
+        onPrev={goPrev}
+        onNext={goNext}
       />
-    </div>
-  );
-}
-
-function ImageModal({ open, images = [], index = 0, onClose, onPrev, onNext, setIndex }) {
-  useEffect(() => {
-    if (!open) return;
-    function onKey(e) {
-      if (e.key === 'Escape') onClose();
-      if (e.key === 'ArrowLeft') onPrev();
-      if (e.key === 'ArrowRight') onNext();
-    }
-    document.addEventListener('keydown', onKey);
-    // prevent background scroll when modal is open
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prevOverflow;
-    };
-  }, [open, onClose, onPrev, onNext]);
-
-  if (!open) return null;
-
-  return createPortal(
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90"
-      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
-    >
-      <button
-        className="absolute top-6 right-6 text-white text-2xl p-2 bg-black/30 rounded-full"
-        onClick={onClose}
-        aria-label="Close"
-      >
-        ✕
-      </button>
-
-      <button
-        className="absolute left-6 top-1/2 -translate-y-1/2 text-white text-3xl p-2 bg-black/30 rounded-full"
-        onClick={(e) => { e.stopPropagation(); onPrev(); }}
-        aria-label="Previous"
-      >
-        ‹
-      </button>
-
-      <div className="w-full h-full flex items-center justify-center p-4">
-        <img
-          src={images[index]}
-          alt={`image ${index + 1}`}
-          className="w-full h-full object-contain rounded-md shadow-lg"
-          onClick={(e) => e.stopPropagation()}
-        />
-      </div>
-
-      <button
-        className="absolute right-6 top-1/2 -translate-y-1/2 text-white text-3xl p-2 bg-black/30 rounded-full"
-        onClick={(e) => { e.stopPropagation(); onNext(); }}
-        aria-label="Next"
-      >
-        ›
-      </button>
-    </div>,
-    document.body
+    </article>
   );
 }

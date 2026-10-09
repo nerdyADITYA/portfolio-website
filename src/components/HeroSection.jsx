@@ -1,81 +1,66 @@
 import React from "react";
-import { useEffect, useRef } from 'react';
+import { motion } from "framer-motion";
+import { portfolioData as d } from "../lib/portfolioData";
+
+const statColors = ["var(--bk-yellow)", "var(--bk-green)", "var(--bk-blue)", "var(--bk-pink)"];
 
 export default function HeroSection() {
-  const heroRef = useRef(null);
-  const titleRef = useRef(null);
-  const subtitleRef = useRef(null);
-  const buttonsRef = useRef(null);
-
-  useEffect(() => {
-    // CSS-based animations with delays
-    setTimeout(() => {
-      if (titleRef.current) {
-        titleRef.current.style.opacity = '1';
-        titleRef.current.style.transform = 'translateY(0)';
-      }
-    }, 300);
-
-    setTimeout(() => {
-      if (subtitleRef.current) {
-        subtitleRef.current.style.opacity = '1';
-        subtitleRef.current.style.transform = 'translateY(0)';
-      }
-    }, 600);
-
-    setTimeout(() => {
-      if (buttonsRef.current) {
-        buttonsRef.current.style.opacity = '1';
-        buttonsRef.current.style.transform = 'translateY(0)';
-      }
-    }, 900);
-  }, []);
-
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
+  const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const marquee = d.skills.flatMap((g) => g.items).join(" ✦ ") + " ✦ ";
 
   return (
-    <section id="home" className="min-h-screen flex items-center justify-center relative z-10" ref={heroRef}>
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        <div>
-          <h1 ref={titleRef} className="text-5xl md:text-7xl font-space font-bold mb-6 opacity-0 transform translate-y-12 transition-all duration-700 ease-out">
-            Hi, I'm <span className="gradient-text">Aditya</span>
+    <>
+      <section id="home" className="max-w-6xl mx-auto px-6 pt-16 pb-6 grid lg:grid-cols-[1.5fr_1fr] gap-10 items-center">
+        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <h1 className="font-bold leading-[0.95] tracking-tight text-[clamp(44px,8vw,92px)]">
+            Hi, I'm{" "}
+            <mark
+              className="inline-block px-3 border-[3px] border-[var(--bk-ink)] rounded-xl -rotate-2"
+              style={{ background: "var(--bk-pink)", boxShadow: "5px 5px 0 var(--bk-ink)" }}
+            >
+              Aditya
+            </mark>{" "}
+            — I build AI &amp; backend things that{" "}
+            <u className="decoration-[6px] underline-offset-4" style={{ textDecorationColor: "var(--bk-green)" }}>actually ship.</u>
           </h1>
-          <p ref={subtitleRef} className="text-xl md:text-2xl text-gray-400 mb-8 max-w-3xl mx-auto opacity-0 transform translate-y-8 transition-all duration-700 ease-out delay-300">
-            As a Computer Engineering student, I spend most of my time building backend systems with Python. I enjoy creating scalable solutions and using my full-stack skills to turn ideas into real products.
-          </p>
-          <div ref={buttonsRef} className="flex flex-col sm:flex-row gap-4 justify-center items-center opacity-0 transform translate-y-6 transition-all duration-700 ease-out delay-600">
-            <button
-              onClick={() => scrollToSection('projects')}
-              className="bg-gradient-to-r from-portfolio-accent to-portfolio-accent-purple px-8 py-3 rounded-full text-white font-medium hover:shadow-lg transition-all duration-300 hover:scale-105"
-            >
-              View My Work
-            </button>
-            <a
-              href="/Aditya Resume.pdf"
-              download="Aditya Resume.pdf"
-              className="border border-portfolio-accent px-8 py-3 rounded-full text-portfolio-accent hover:bg-portfolio-accent hover:text-white transition-all duration-300 inline-block text-center"
-            >
-              Download CV
-            </a>
+          <p className="text-xl my-6 max-w-xl">{d.tagline} From biometric terminals to local LLMs.</p>
+          <div className="flex flex-wrap gap-3">
+            <button className="bk-btn" onClick={() => go("projects")}>See my work →</button>
+            <a className="bk-btn white" href="/Aditya Resume.pdf" download="Aditya Resume.pdf">Résumé ↓</a>
+            <a className="bk-btn white" href={d.socialLinks[0].url} target="_blank" rel="noopener noreferrer">GitHub</a>
           </div>
-        </div>
-        
-        {/* Animated Elements */}
-        <div className="absolute top-20 left-10 floating-element">
-          <div className="w-4 h-4 bg-portfolio-accent rounded-full opacity-60"></div>
-        </div>
-        <div className="absolute top-40 right-20 floating-element">
-          <div className="w-6 h-6 bg-portfolio-accent-purple rounded-full opacity-40"></div>
-        </div>
-        <div className="absolute bottom-20 left-1/4 floating-element">
-          <div className="w-3 h-3 bg-portfolio-accent rounded-full opacity-50"></div>
-        </div>
+        </motion.div>
+
+        <motion.div
+          className="bk-box bk-static p-6 rotate-2"
+          style={{ background: "var(--bk-blue)" }}
+          initial={{ opacity: 0, rotate: 8, scale: 0.9 }}
+          animate={{ opacity: 1, rotate: 2, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          <h4 className="mono text-xs font-bold uppercase tracking-widest">● Status</h4>
+          <p className="mt-2"><b>B.E. Computer Eng (AI &amp; ML)</b><br />LJ Institute · exp. 2027</p>
+          <hr className="border-0 border-t-[3px] border-dashed border-[var(--bk-ink)] my-4" />
+          <h4 className="mono text-xs font-bold uppercase tracking-widest">● Looking for</h4>
+          <p className="mt-2">Master's in CS / AI — LLM systems, retrieval &amp; applied ML</p>
+          <hr className="border-0 border-t-[3px] border-dashed border-[var(--bk-ink)] my-4" />
+          <h4 className="mono text-xs font-bold uppercase tracking-widest">● Based in</h4>
+          <p className="mt-2">Vadodara, Gujarat, India</p>
+        </motion.div>
+      </section>
+
+      <div className="overflow-hidden whitespace-nowrap border-y-[3px] border-[var(--bk-ink)] bg-[var(--bk-ink)] text-[var(--bk-yellow)] my-12" aria-hidden="true">
+        <div className="bk-marquee-track py-3 mono font-bold text-xl">{marquee.repeat(2)}</div>
       </div>
-    </section>
+
+      <section className="max-w-6xl mx-auto px-6 grid grid-cols-2 lg:grid-cols-4 gap-5">
+        {d.stats.map((s, i) => (
+          <div key={s.label} className="bk-box p-5" style={{ background: statColors[i] }}>
+            <b className="block text-2xl lg:text-3xl">{s.value}</b>
+            <span className="mono text-xs">{s.label}</span>
+          </div>
+        ))}
+      </section>
+    </>
   );
 }
