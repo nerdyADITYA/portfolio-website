@@ -16,7 +16,7 @@ export const portfolioData = {
   stats: [
     { value: "7.5m → <1.5m", label: "RAG CPU response time" },
     { value: "<50 ms", label: "Out-of-scope query answers" },
-    { value: "22", label: "Crop types classified" },
+    { value: "16.8%", label: "Lower wind-speed error vs best baseline" },
     { value: "8.05/10", label: "Diploma CGPA" }
   ],
 
@@ -57,11 +57,11 @@ export const portfolioData = {
 
   skills: [
     { category: "Languages", items: ["Python", "JavaScript", "Java", "SQL", "Dart"] },
-    { category: "AI / ML", items: ["scikit-learn", "Pandas", "NumPy", "LangChain", "Ollama", "Hugging Face Sentence-Transformers", "RAG", "Prompt engineering"] },
-    { category: "Backend", items: ["FastAPI", "Django", "Node.js", "Express", "REST APIs", "WebSockets (Socket.IO)", "JWT / RBAC"] },
-    { category: "Frontend & Mobile", items: ["React", "Vite", "Material UI", "Tailwind CSS", "HTML", "CSS", "Three.js", "Anime.js", "Streamlit", "Flutter"] },
+    { category: "AI / ML", items: ["scikit-learn", "Pandas", "NumPy", "LangChain", "Ollama", "Hugging Face Sentence-Transformers", "RAG", "Prompt engineering", "LightGBM", "statsmodels", "SciPy", "Time-series forecasting"] },
+    { category: "Backend", items: ["FastAPI", "Django", "Node.js", "Express", "REST APIs", "WebSockets (Socket.IO)", "JWT / RBAC", "Pydantic", "SQLAlchemy", "FastF1", "Open-Meteo API"] },
+    { category: "Frontend & Mobile", items: ["React", "Vite", "Material UI", "Tailwind CSS", "HTML", "CSS", "Three.js", "React Three Fiber", "Recharts", "TanStack Query", "Leaflet", "Anime.js", "Streamlit", "Flutter"] },
     { category: "Databases", items: ["MySQL", "MariaDB", "MongoDB", "SQLite", "Firebase", "ChromaDB", "Qdrant", "Prisma ORM"] },
-    { category: "Tools", items: ["Git", "Docker", "Jaspersoft Studio", "pytest"] }
+    { category: "Tools", items: ["Git", "Docker", "Jaspersoft Studio", "pytest", "Vitest", "ESLint"] }
   ],
 
   // file/image live in src/attached_assets/certificates; verifyUrl is the public Coursera verification link.
@@ -94,7 +94,41 @@ export const portfolioData = {
       images: []
     },
     {
-      title: "Security Personnel Post Allocation System",
+      title: "Aeolus",
+      subtitle: "24-Hour Wind Forecasting and Turbine Yaw Advice",
+      category: "Applied ML · Forecasting",
+      description:
+        "A local web app that downloads three years of hourly wind history for any site, trains and honestly backtests several forecasting models, then forecasts the next 24 hours of wind speed and direction, recommends a turbine heading and estimates energy output.",
+      highlights: [
+        "Built a local web app that downloads three years of hourly wind data for a site, forecasts the next 24 hours of wind speed and direction, and recommends turbine yaw with energy estimates from NREL power curves",
+        "Trained LightGBM against persistence, seasonal-naive and SARIMAX baselines using a time-ordered split, a leakage check and a 596-forecast rolling backtest, cutting wind-speed error by 16.8% and direction error by 10.5%; reported that Open-Meteo's own forecast remained more accurate",
+        "Encoded wind direction as sine and cosine to derive a confidence score, and limited yaw advice to trusted hours with an 8-degree deadband to avoid needless turning",
+        "Delivered a FastAPI backend with background jobs and a React dashboard with a map, charts and a 3D turbine view, covered by 337 tests"
+      ],
+      technologies: ["Python", "FastAPI", "LightGBM", "statsmodels", "React", "Three.js"],
+      githubUrl: "https://github.com/nerdyADITYA/Aeolus.git",
+      liveUrl: "",
+      images: range('Aeolus', 9, 'png')
+    },
+    {
+      title: "ApexIQ",
+      subtitle: "F1 Performance Intelligence Dashboard",
+      category: "Data Science · Forecasting",
+      description:
+        "A full-stack data-science app that ingests real Formula 1 data, analyses driver and team performance, simulates pit-stop strategies and forecasts upcoming races and the championship with probabilities.",
+      highlights: [
+        "Built a full-stack app that ingests real Formula 1 data with FastF1 into a relational database (re-runnable, no duplicates) and analyses driver and team pace, reliability and teammate gaps",
+        "Forecast races and the championship with a Plackett-Luce Monte Carlo simulation (10,000+ runs) giving win, podium and retirement probabilities; validated models with forward-chaining backtests and rejected those that did not beat the baseline",
+        "Built a Strategy Lab that compares custom and real pit strategies with a tyre-degradation model and an uncertainty band; froze pre-race forecasts so the track record cannot be rewritten",
+        "Reconstructed circuits from position data in a 3D Circuit Lab that replays two-driver telemetry with a lap-time delta; React dashboard covered by 74 frontend tests"
+      ],
+      technologies: ["Python", "FastF1", "FastAPI", "SQLAlchemy", "React", "Three.js"],
+      githubUrl: "https://github.com/nerdyADITYA/ApexIQ.git",
+      liveUrl: "",
+      images: range('ApexIQ', 6, 'png')
+    },
+    {
+      title: "Automated Security Personnel Post Allocation System",
       subtitle: "Real-time guard-to-post assignment",
       category: "Real-time · Hardware",
       description:
@@ -127,6 +161,7 @@ export const portfolioData = {
       liveUrl: "https://smart-inventory-black.vercel.app/login",
       images: range('SM', 9)
     },
+    /* AgroAnalytics - temporarily hidden from the portfolio (remove the comment markers to show it again)
     {
       title: "AgroAnalytics",
       subtitle: "Crop Recommendation System",
@@ -143,6 +178,7 @@ export const portfolioData = {
       liveUrl: "https://agro-analytics-kchp.onrender.com/",
       images: range('agroanalytics-', 6)
     },
+    */
     {
       title: "Expense Tracker",
       subtitle: "Automated Bank-Email Sync",
